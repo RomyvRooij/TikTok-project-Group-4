@@ -29,13 +29,13 @@ At this stage, the project contains:
 These files can be opened and run in Positron or RStudio.
 
 ## Group member and contributions
-Tessa Breusers - Made the data folder, added gitkeep because they were empty, wrote the whole README and setted up folder structure
+Tessa Breusers - Made the data folder, added gitkeep because they were empty, wrote the whole README and setted up folder structure.
 
 Romy van Rooij - 
 
 Ana Maria - 
 
-Elsemieke - 
+Elsemieke - Made the Downloaddata.R script and wrote the code for downloading the data. Added the .gitignore file and made sure that the data would not be tracked.
 
 ## Structure
 1. data
