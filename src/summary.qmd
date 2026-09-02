@@ -3,43 +3,124 @@ title: "TikTok Video View Summary"
 format: html
 ---
 
+# TikTok Video Analysis
+
+This report provides a summary of the TikTok video view data.
+
+## 1. Load the data
+
 ```{r}
-views <- read.csv("C:\Users\JeroenSwolfs\Documents\TikTok-project-template-2026\data\video_view.csv")
-library(dplyr)
 library(tidyverse)
 
-x <- nrow(views)
-print(x)
+views <- read.csv("data/raw/video_view.csv")
+```
+
+## 2. Dataset overview
+
+```{r}
+nrow(views)
 
 str(views)
-head(views)
-summary(views)
-colSums(is.na(views))
 
+head(views)
+
+summary(views)
+
+colSums(is.na(views))
+```
+
+## 3. Overall performance
+
+```{r}
 overview <- views %>%
-  summarize(
+  summarise(
     videos = n(),
     creators = n_distinct(creator_id),
-    avg_length = mean(video_length_sec),
-    avg_impressions = mean(impressions_n),
-    avg_watched = mean(watched_n),
-    avg_watch_rate = 
-    avg_watch_share = 
-    avg_watch_seconds = 
+    avg_length = mean(video_length_sec, na.rm = TRUE),
+    avg_impressions = mean(impressions_n, na.rm = TRUE),
+    avg_watched = mean(watched_n, na.rm = TRUE),
+    avg_watch_rate = mean(watch_rate, na.rm = TRUE),
+    avg_watch_share = mean(watched_n / impressions_n, na.rm = TRUE),
+    avg_watch_seconds = mean(
+      video_length_sec * watched_n / impressions_n,
+      na.rm = TRUE
+    )
   )
 
-print(overview)
+overview
+```
 
-mean(views$watch_rate)
-mean(views$avg_watch_share)
+## 4. Watch share
 
-views$watched_pct <- views$watched_n / views$impressions_n * 100
+```{r}
+views <- views %>%
+  mutate(
+    watched_pct = watched_n / impressions_n * 100
+  )
 
-topvideo <- views[views$impressions_n == max(views$impressions_n), ]
-print(topvideo)
+head(views)
+```
 
-hist(views$video_length_sec)
+## 5. Most viewed video
 
-goodvideos <- subset(views, watch_rate > 0.8)
+```{r}
+topvideo <- views %>%
+  filter(impressions_n == max(impressions_n, na.rm = TRUE))
+
+topvideo
+```
+
+## 6. Distribution of video length
+
+```{r}
+hist(
+  views$video_length_sec,
+  main = "Distribution of Video Length",
+  xlab = "Video length (seconds)"
+)
+```
+
+## 7. Videos with high watch rates
+
+```{r}
+goodvideos <- views %>%
+  filter(watch_rate > 0.8)
+
 nrow(goodvideos)
 ```
+
+## 8. Top 10 videos by watch rate
+
+```{r}
+top_watch_rate <- views %>%
+  select(
+    video_id,
+    creator_id,
+    impressions_n,
+    watched_n,
+    watch_rate
+  ) %>%
+  arrange(desc(watch_rate)) %>%
+  slice_head(n = 10)
+
+top_watch_rate
+```
+
+## 9. Performance by creator
+
+```{r}
+creator_summary <- views %>%
+  group_by(creator_id) %>%
+  summarise(
+    videos = n(),
+    total_impressions = sum(impressions_n, na.rm = TRUE),
+    average_watch_rate = mean(watch_rate, na.rm = TRUE)
+  ) %>%
+  arrange(desc(total_impressions))
+
+creator_summary
+```
+
+## 10. Conclusion
+
+The analysis provides an overview of video volume, reach, watch behaviour, and creator-level performance.
