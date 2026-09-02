@@ -1,8 +1,11 @@
-# Load the data set and save it in the data:
 library("tidyverse")
-data <- read_csv("https://raw.githubusercontent.com/hannesdatta/course-dprep/refs/heads/main/material/project/video_view.csv")
-write_csv(data, "data/raw/video_view.csv")
+url <- "https://raw.githubusercontent.com/hannesdatta/course-dprep/refs/heads/main/material/project/video_view.csv"
+destination <- "data/raw/video_view.csv"
 
-#Load the data set from the data section:
-library("tidyverse")
-data <- read_csv("data/raw/video_view.csv")
+# Check to see if the file already exists and otherwise download it:
+if (!file.exists(destination)) {
+  data <- read_csv(url)
+  write_csv(data, destination)
+} else {
+  data <- read_csv(destination)
+}
