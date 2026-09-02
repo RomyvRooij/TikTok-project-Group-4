@@ -20,8 +20,8 @@ To set up the project environment:
 ## Reproducing the analysis 
 At this stage, the project contains:
 
-1. `script.R`  
-   Main R script for the project code.
+1. `Downloaddata.R`  
+   Main R script for downloading the data.
 
 2. `src/summary.qmd`  
    Quarto file used for the project summary/report.
