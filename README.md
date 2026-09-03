@@ -33,7 +33,7 @@ Tessa Breusers - Made the data folder, added gitkeep because they were empty, wr
 
 Romy van Rooij - 
 
-Ana Maria - 
+Ana Maria - Completed the Quarto summary in summary.qmd, using the downloaded video data, saved it in the correct folder, and checked that it renders without errors. I also kept the project structure organized with the data in data/raw and the analysis files in src.
 
 Elsemieke - Made the Downloaddata.R script and wrote the code for downloading the data. Added the .gitignore file and made sure that the data would not be tracked.
 
