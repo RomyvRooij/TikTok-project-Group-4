@@ -37,7 +37,10 @@ Elsemieke - Made the Downloaddata.R script and wrote the code for downloading th
 
 ## Structure
 1. data
-> raw (all our data files)
+> raw (all our downloaded data files, ignored by Git)
 2. src
-> summary.qmd (summary)
-3. AI.md(description of ai usage)
+> Downloaddata.R (script to download the dataset)
+> summary.qmd (Quarto file that reads the data and produces the summary)
+> summary.html (rendered output of summary.qmd)
+3. .gitignore (ensures the data folder is not tracked by Git)
+4. AI.md (description of AI usage)
