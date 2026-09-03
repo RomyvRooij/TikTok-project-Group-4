@@ -18,15 +18,13 @@ To set up the project environment:
     install.packages("ggplot2")
 
 ## Reproducing the analysis 
-At this stage, the project contains:
+To reproduce the full analysis, run the following in order:
 
 1. `Downloaddata.R`  
-   Main R script for downloading the data.
+   Run this first (e.g. `Rscript Downloaddata.R` in the terminal). This downloads the dataset from the provided URL and saves it to `data/raw/video_view.csv`. If the file already exists, it will skip the download and just read the existing file.
 
 2. `src/summary.qmd`  
-   Quarto file used for the project summary/report.
-
-These files can be opened and run in Positron or RStudio.
+   Once the data is downloaded, render this Quarto file to produce the summary report (e.g. `quarto render src/summary.qmd` in the terminal). This reads `data/raw/video_view.csv` and produces `src/summary.html` with an overview of the dataset, key statistics, and visualizations.
 
 ## Group member and contributions
 Tessa Breusers - Made the data folder, added gitkeep because they were empty, wrote the whole README and setted up folder structure.
@@ -41,5 +39,5 @@ Elsemieke - Made the Downloaddata.R script and wrote the code for downloading th
 1. data
 > raw (all our data files)
 2. src
-> summary qmnd (summary)
+> summary.qmd (summary)
 3. AI.md(description of ai usage)
