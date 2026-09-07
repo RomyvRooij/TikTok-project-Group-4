@@ -123,4 +123,4 @@ creator_summary
 
 ## 10. Conclusion
 
-The analysis provides an overview of video volume, reach, watch behaviour, and creator-level performance.
+The analysis provides an overview of video volume, reach, watch behaviour, and creator-level performance. It shows differences in video performance and provides insight into which videos and creators received the most engagement.
