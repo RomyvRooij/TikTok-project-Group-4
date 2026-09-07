@@ -20,8 +20,9 @@ To set up the project environment:
 ## Reproducing the analysis 
 To reproduce the full analysis, run the following in order:
 
-1. `Downloaddata.R`  
-   Run this first (e.g. `Rscript Downloaddata.R` in the terminal). This downloads the dataset from the provided URL and saves it to `data/raw/video_view.csv`. If the file already exists, it will skip the download and just read the existing file.
+1. `src/Downloaddata.R`  
+
+   Run this first (e.g. `Rscript src/Downloaddata.R` in the terminal). This downloads the dataset from the provided URL and saves it to `data/raw/video_view.csv`. If the file already exists, it will skip the download and just read the existing file.
 
 2. `src/summary.qmd`  
    Once the data is downloaded, render this Quarto file to produce the summary report (e.g. `quarto render src/summary.qmd` in the terminal). This reads `data/raw/video_view.csv` and produces `src/summary.html` with an overview of the dataset, key statistics, and visualizations.
