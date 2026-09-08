@@ -11,6 +11,7 @@ This report provides a summary of the TikTok video view data.
 
 ```{r}
 library(here)
+library(tidyverse)
 
 views <- read.csv(here("data", "raw", "video_view.csv"))
 ```
