@@ -66,3 +66,5 @@ quarto render src/summary.qmd
 3. .gitignore (ensures the data folder is not tracked by Git)
 4. AI.md (description of AI usage)
 5. README.md (explains the project)
+
+Group 4
