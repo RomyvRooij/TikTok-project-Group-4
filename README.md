@@ -13,8 +13,8 @@ To set up the project environment:
 
 1. Install and open Positron.
 2. Clone this Github repository to your computer.
-2. Open the project folder in Positron. `TIKTOK-PROJECT-GROUP-4` in Positron.
-3. Install the required packages by running:
+3. Open the project folder in Positron. `TIKTOK-PROJECT-GROUP-4` in Positron.
+4. Install the required packages by running:
 
 ```
     install.packages("tidyverse")
