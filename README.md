@@ -3,7 +3,7 @@ This repository is a template for the **Data preparation and programming skills*
 
 ## **GOAL of the project**
 The goal of this project is to work together on the TikTok data in Positron with GitHub. 
-We are analyzing the `video_view.csv` dataset.  
+We are analyzing the `video_view.csv` dataset to explore video performance, reach and viewing behaviour.  
 The project focuses on downloading the data, preparing it, and performing an analysis to answer the research question of the project.
 
 ## **Set up the environment & install dependencies**
@@ -59,13 +59,13 @@ quarto render src/summary.qmd
 
 ## **Structure**
 1. data
-> raw (original downloaded data, ignored by Git)
-> processed (reserved for cleaned/derived data, ignored by Git)
+   - **raw/** — original downloaded data (ignored by Git)
+   - **processed/** — reserved for cleaned/derived data (ignored by Git)
 
 2. src
-> Downloaddata.R (script to download the dataset)
-> summary.qmd (Quarto file that reads the data and produces the summary)
-> summary.html (rendered output of summary.qmd)
+   - **Downloaddata.R** — script to download the dataset
+   - **summary.qmd** — Quarto file that reads the data and produces the summary
+   - **summary.html** — rendered output of `summary.qmd`
 
 3. .gitignore (ensures the data folder is not tracked by Git)
 4. AI.md (description of AI usage)
