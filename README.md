@@ -51,7 +51,7 @@ quarto render src/summary.qmd
 *Romy van Rooij* 
 - Made the tiktok project, made a start on the Quarto summary, performed final updates on the README to improve clarity and structure.
 
-*Ana Maria* 
+*Ana Maria Iacob* 
 - Completed the Quarto summary in summary.qmd, using the downloaded video data, saved it in the correct folder, and checked that it renders without errors. I also kept the project structure organized with the data in data/raw and the analysis files in src.
 
 *Elsemieke van Gent* 
