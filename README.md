@@ -21,6 +21,7 @@ To set up the project environment:
     install.packages("readr")
     install.packages("dplyr")
     install.packages("ggplot2")
+    install.packages("here")
 ```
 
 ## **Reproducing the analysis**
@@ -58,13 +59,18 @@ quarto render src/summary.qmd
 
 ## **Structure**
 1. data
-> raw (all our downloaded data files, ignored by Git)
+> raw (original downloaded data, ignored by Git)
+> processed (reserved for cleaned/derived data, ignored by Git)
+
 2. src
 > Downloaddata.R (script to download the dataset)
 > summary.qmd (Quarto file that reads the data and produces the summary)
 > summary.html (rendered output of summary.qmd)
+
 3. .gitignore (ensures the data folder is not tracked by Git)
 4. AI.md (description of AI usage)
 5. README.md (explains the project)
+
+Note: the data folder is excluded from Git via .gitignore, so raw and processed data files are never committed. Empty subfolders are kept using .gitkeep placeholder files, since Git does not track empty directories.
 
 Group 4
