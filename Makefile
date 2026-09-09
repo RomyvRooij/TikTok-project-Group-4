@@ -7,5 +7,6 @@ data/processed/users_clean.csv: data/raw/users.csv src/Tessa/Cleandata.R
 	Rscript -e "source('src/Tessa/Cleandata.R')"
 
 # Create visualization if plot does not exist or processed data changed
-src/Tessa/output/average_preferences.png: data/processed/users_clean.csv src/Tessa/Visualize.R
+output/average_preferences.png: data/processed/users_clean.csv src/Tessa/Visualize.R
 	Rscript -e "source('src/Tessa/Visualize.R')"
+
