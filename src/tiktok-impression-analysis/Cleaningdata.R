@@ -1,8 +1,9 @@
 # Script to clean and inspect TikTok impression data
-
 library(tidyverse)
-# Load data
-impressions <- read.csv("data/raw/impressions.csv")
+library(here)
+
+# Load data using here() to point to the project root
+impressions <- read.csv(here("data", "raw", "impressions.csv"))
 
 print("=== ORIGINAL DATA ===")
 print(paste("Dimensions:", nrow(impressions), "rows,", ncol(impressions), "columns"))
@@ -12,7 +13,7 @@ print(head(impressions))
 # Basic cleaning
 impressions_clean <- impressions %>%
   distinct() %>%
-  filter(if_any(everything(), ~ !is.na(.)))
+  drop_na(score_total, feed_rank, source_bucket)
 
 print("\n=== AFTER CLEANING ===")
 print(paste("Dimensions:", nrow(impressions_clean), "rows,", ncol(impressions_clean), "columns"))
@@ -29,12 +30,14 @@ print(paste("Missing timestamps:", sum(is.na(impressions_clean$shown_at))))
 print(paste("First timestamp:", impressions_clean$shown_at[1]))
 print(paste("Last timestamp:", impressions_clean$shown_at[nrow(impressions_clean)]))
 
-# Create processed directory if needed
-if (!dir.exists("data/processed")) {
-  dir.create("data/processed", recursive = TRUE)
+# Create processed directory if needed relative to project root
+processed_dir <- here("data", "processed")
+if (!dir.exists(processed_dir)) {
+  dir.create(processed_dir, recursive = TRUE)
 }
 
-# Save cleaned data
-write.csv(impressions_clean, "data/processed/impressions_clean.csv", row.names = FALSE)
-print("\n✓ Cleaned data saved to data/processed/impressions_clean.csv")
+# Save cleaned data using here()
+output_path <- here("data", "processed", "impressions_clean.csv")
+write.csv(impressions_clean, output_path, row.names = FALSE)
+print(paste("\n✓ Cleaned data saved to", output_path))
 
