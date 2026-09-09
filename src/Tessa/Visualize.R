@@ -30,7 +30,7 @@ avg_preferences <- data.frame(
 
 avg_preferences
 # Create plot
-ggplot(avg_preferences, aes(x = category, y = mean_preference)) +
+plot_preferences <- ggplot(avg_preferences, aes(x = category, y = mean_preference)) +
   geom_col(fill = "steelblue") + coord_flip() + 
   labs(
     title = "Average user preference by content category",
@@ -41,9 +41,11 @@ ggplot(avg_preferences, aes(x = category, y = mean_preference)) +
 
 # Save plot
 ggsave(
-  filename = "output/figures/average_preferences.png",
+  filename = "output/average_preferences.png",
   plot = plot_preferences,
   width = 8,
   height = 5,
   dpi = 300
 )
+
+plot_preferences
