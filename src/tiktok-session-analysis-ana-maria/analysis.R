@@ -207,6 +207,51 @@ ggsave(
   height = 5
 )
 
+# -------------------------
+# 6b. Do users who watch more videos spend more time watching?
+# -------------------------
+
+videos_watch_plot <- ggplot(
+  sessions,
+  aes(
+    x = videos_viewed,
+    y = watch_seconds / 60
+  )
+) +
+  geom_point(
+    color = "#C0392B",
+    alpha = 0.25
+  ) +
+  geom_smooth(
+    method = "lm",
+    se = FALSE,
+    color = "#7B1E1E",
+    linewidth = 1.2
+  ) +
+  labs(
+    title = "Do Users Who Watch More Videos Spend More Time Watching?",
+    subtitle = "Relationship between videos viewed and total watch time",
+    x = "Videos viewed",
+    y = "Watch time (minutes)"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(
+      face = "bold",
+      size = 14
+    ),
+    plot.subtitle = element_text(
+      color = "#7B1E1E"
+    ),
+    panel.grid.minor = element_blank()
+  )
+
+ggsave(
+  "output/videos_vs_watch_time.png",
+  videos_watch_plot,
+  width = 8,
+  height = 5
+)
 
 # -------------------------
 # 7. How does session activity change over time?

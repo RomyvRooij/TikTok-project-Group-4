@@ -6,7 +6,8 @@ OUTPUTS = output/session_duration.png \
           output/watch_seconds.png \
           output/duration_vs_videos.png \
           output/sessions_over_time.png \
-          output/sessions_by_user.png
+          output/sessions_by_user.png \
+          output/videos_vs_watch_time.png
 
 # Default target: create all analysis outputs
 all: $(OUTPUTS)
@@ -16,5 +17,5 @@ $(DATA):
 	Rscript download.R
 
 # Create all visualizations after the data is available
-$(OUTPUTS): $(DATA)
+$(OUTPUTS): $(DATA) analysis.R
 	Rscript analysis.R
