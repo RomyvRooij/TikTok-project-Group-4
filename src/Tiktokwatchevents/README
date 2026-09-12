@@ -1,8 +1,62 @@
-# **TikTok-project-template-2026**
-
+# **TikTok watch events analysis**
+This folder contains the analysis of Tiktok watch event data.
 
 ## **Set up the environment & install dependencies**
+This analysis is written in Positron.
+Required packages:
+- Tidyverse
+- Lubridate
+
+Install them in Positron if needed:
+
+```r
+install.packages(c("tidyverse", "lubridate")
 
 ## **Reproducing the analysis**
+To reproduce the analysis, open a terminal in the root of the repository and run:
+
+```
+make
+```
+
+The makefile will run the R analysis script and generate the required output figures.
+
+The analysis script:
+    - reads the TikTok watch event data;
+    - normalises the mixed timestamp formats in `started_at_raw`;
+    - validates the cleaned timestamps against the provided `started_at` variable;
+    - analyses the distribution of user actions;
+    - combines the watch event data with video length information;
+    - calculates the average share of each video watched;
+    - saves the visualisations as `.png` files in the output folder.
+
+If the output files already exist and are up to date, `make` will not rerun the analysis unnecessarily.
+
+To remove generated output files and reproduce them from scratch:
+
+``` bash
+make clean
+make
 
 ## **Structure**
+
+1. data
+   - **raw/** — original downloaded data (ignored by Git)
+   - **processed/** — reserved for cleaned/derived data (ignored by Git)
+
+2. src
+   - **`Downloaddata.R`** — script to download the dataset
+   - **`summary.qmd`** — Quarto file that reads the data and produces the summary
+   - **`summary.html`** — rendered output of `summary.qmd`
+   - **`Tiktokwatchevents`** the folder that holds information for solving this issue
+        - `README` (explains the issue)
+        - `scriptwatchevents.R` (script to download the dataset, clean the data, and make visualizations)
+        - `makefile` 
+        - **`outputwatchevents`** - 
+            - `action_distribution.png` (action per category)
+            - `watch_share_by_video_length.png` (Average percentage of each video watched by video length)
+
+3. `.gitignore` (ensures the data folder is not tracked by Git)
+4. `AI.md` (description of AI usage)
+5. `README.md` (explains the project)
+
