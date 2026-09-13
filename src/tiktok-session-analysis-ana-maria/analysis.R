@@ -7,11 +7,14 @@ library(tidyverse)
 # -------------------------
 
 sessions <- read_csv("data/sessions.csv")
+dir.create("output", showWarnings = FALSE)
 
 
 # -------------------------
 # 2. Clean data
 # -------------------------
+
+n_before <- nrow(sessions)
 
 sessions <- sessions %>%
   mutate(
@@ -34,15 +37,21 @@ sessions <- sessions %>%
     !is.na(session_duration_sec),
     !is.na(videos_viewed),
     !is.na(watch_seconds),
-    session_duration_sec >= 0,
+    session_duration_sec > 0,          # a 0-second session isn't really a session
     videos_viewed >= 0,
-    watch_seconds >= 0
-  )
+    watch_seconds >= 0,
+    watch_seconds <= session_duration_sec,  # can't watch more than the session lasted
+    logout_at >= login_at              # session can't end before it starts
+  ) %>%
+  distinct(session_id, .keep_all = TRUE)   # drop duplicate sessions, if any
+
+n_after <- nrow(sessions)
+cat("Rows before cleaning:", n_before, "\n")
+cat("Rows after cleaning: ", n_after, "\n")
+cat("Rows removed:        ", n_before - n_after, "\n")
 
 glimpse(sessions)
 summary(sessions)
-
-dir.create("output", showWarnings = FALSE)
 
 
 # -------------------------
