@@ -5,7 +5,7 @@ library(tidyverse)
 library(here)
 
 # Create output directory relative to project root if needed
-output_dir <- here("src", "tiktok-impression-analysis", "output")
+output_dir <- here("output")
 if (!dir.exists(output_dir)) {
   dir.create(output_dir, recursive = TRUE)
 }
@@ -30,7 +30,7 @@ plot1 <- impressions %>%
   labs(title = "Distribution of Feed Sources",
        x = "Source",
        y = "Count")
-ggsave(here("src", "tiktok-impression-analysis", "output", "Plot_1_source_distribution.png"), plot1, width = 8, height = 6)
+ggsave(here("output", "Plot_1_source_distribution.png"), plot1, width = 8, height = 6)
 
 # 2. Ranking scores distribution
 plot2 <- ggplot(impressions, aes(x = score_total)) +
@@ -39,7 +39,7 @@ plot2 <- ggplot(impressions, aes(x = score_total)) +
   labs(title = "Distribution of Ranking Scores",
        x = "Ranking Score",
        y = "Frequency")
-ggsave(here("src", "tiktok-impression-analysis", "output", "Plot_2_ranking_scores_distribution.png"), plot2, width = 8, height = 6)
+ggsave(here("output", "Plot_2_ranking_scores_distribution.png"), plot2, width = 8, height = 6)
 
 # 3. Ranking scores by source (boxplot)
 plot3 <- impressions %>%
@@ -52,7 +52,7 @@ plot3 <- impressions %>%
   labs(title = "Ranking Scores by Source",
        x = "Source",
        y = "Ranking Score")
-ggsave(here("src", "tiktok-impression-analysis", "output", "Plot_3_ranking_by_source.png"), plot3, width = 8, height = 6)
+ggsave(here("output", "Plot_3_ranking_by_source.png"), plot3, width = 8, height = 6)
 
 # 4. Feed position distribution
 plot4 <- ggplot(impressions, aes(x = feed_rank)) +
@@ -61,4 +61,4 @@ plot4 <- ggplot(impressions, aes(x = feed_rank)) +
   labs(title = "Distribution of Feed Positions",
        x = "Position in Feed",
        y = "Count")
-ggsave(here("src", "tiktok-impression-analysis", "output", "Plot_4_position_distribution.png"), plot4, width = 8, height = 6)
+ggsave(here("output", "Plot_4_position_distribution.png"), plot4, width = 8, height = 6)
