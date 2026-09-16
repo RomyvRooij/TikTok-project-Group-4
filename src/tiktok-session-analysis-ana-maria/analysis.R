@@ -6,9 +6,9 @@ library(tidyverse)
 # 1. Load data
 # -------------------------
 
-sessions <- read_csv("data/sessions.csv")
+sessions <- read_csv("data/raw/sessions.csv")
 dir.create("output", showWarnings = FALSE)
-
+dir.create("data/processed", recursive = TRUE, showWarnings = FALSE)
 
 # -------------------------
 # 2. Clean data
@@ -16,7 +16,7 @@ dir.create("output", showWarnings = FALSE)
 
 n_before <- nrow(sessions)
 
-sessions <- sessions %>%
+sessions_clean <- sessions %>%
   mutate(
     login_at = as.POSIXct(
       login_at,
@@ -46,20 +46,26 @@ sessions <- sessions %>%
   distinct(session_id, .keep_all = TRUE)   # drop duplicate sessions, if any
 
 n_after <- nrow(sessions)
+
 cat("Rows before cleaning:", n_before, "\n")
 cat("Rows after cleaning: ", n_after, "\n")
 cat("Rows removed:        ", n_before - n_after, "\n")
 
-glimpse(sessions)
-summary(sessions)
+#save cleaned dataset
+write_csv(
+  sessions_clean,
+  "data/processed/sessions_clean.csv"
+)
 
+glimpse(sessions_clean)
+summary(sessions_clean)
 
 # -------------------------
 # 3. How long do sessions last?
 # -------------------------
 
 duration_plot <- ggplot(
-  sessions,
+  sessions_clean,
   aes(x = session_duration_sec / 60)
 ) +
   geom_histogram(
@@ -98,7 +104,7 @@ ggsave(
 # -------------------------
 
 videos_plot <- ggplot(
-  sessions,
+  sessions_clean,
   aes(x = videos_viewed)
 ) +
   geom_histogram(
@@ -106,7 +112,7 @@ videos_plot <- ggplot(
     fill = "#C9B6F2"
   ) +
   geom_vline(
-    xintercept = median(sessions$videos_viewed),
+    xintercept = median(sessions_clean$videos_viewed),
     linetype = "dashed",
     color = "#8E6BB8",
     linewidth = 1
@@ -137,7 +143,7 @@ ggsave(
 # -------------------------
 
 watch_plot <- ggplot(
-  sessions,
+  sessions_clean,
   aes(x = watch_seconds / 60)
 ) +
   geom_histogram(
@@ -145,7 +151,7 @@ watch_plot <- ggplot(
     fill = "#F3A6C8"
   ) +
   geom_vline(
-    xintercept = median(sessions$watch_seconds / 60),
+    xintercept = median(sessions_clean$watch_seconds / 60),
     linetype = "dashed",
     color = "#C56B98",
     linewidth = 1
@@ -176,7 +182,7 @@ ggsave(
 # -------------------------
 
 duration_videos_plot <- ggplot(
-  sessions,
+  sessions_clean,
   aes(
     x = session_duration_sec / 60,
     y = videos_viewed
@@ -221,7 +227,7 @@ ggsave(
 # -------------------------
 
 videos_watch_plot <- ggplot(
-  sessions,
+  sessions_clean,
   aes(
     x = videos_viewed,
     y = watch_seconds / 60
@@ -266,7 +272,7 @@ ggsave(
 # 7. How does session activity change over time?
 # -------------------------
 
-sessions_by_day <- sessions %>%
+sessions_by_day <- sessions_clean %>%
   mutate(date = as.Date(login_at)) %>%
   count(date)
 
@@ -307,7 +313,7 @@ ggsave(
 # 8. How does session activity vary across users?
 # -------------------------
 
-sessions_by_user <- sessions %>%
+sessions_by_user <- sessions_clean %>%
   count(user_id, name = "sessions")
 
 user_sessions_plot <- ggplot(
