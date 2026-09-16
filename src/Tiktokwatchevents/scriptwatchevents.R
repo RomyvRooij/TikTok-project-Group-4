@@ -6,6 +6,7 @@ watch <- "data/raw/watch_events.csv"
 
 #to create the folder when it isn't there yet
 dir.create("data/raw", recursive = TRUE, showWarnings = FALSE)
+dir.create("data/processed", recursive = TRUE, showWarnings = FALSE)
 
 # Check to see if the file already exists and otherwise download it:
 if (!file.exists(watch)) {
@@ -41,11 +42,15 @@ watch_events <- watch_events |>
 sum(is.na(watch_events$started_at_clean))
 sum(watch_events$started_at_clean == watch_events$started_at)
 
+# SAVE CLEANED DATA
+write_csv(watch_events, "data/processed/watch_events_clean.csv")
+watch_events_clean <- read_csv("data/processed/watch_events_clean.csv")
+
 #CREATE DATA FOLDER
 dir.create("src/Tiktokwatchevents/outputwatchevents", recursive = TRUE, showWarnings = FALSE)
 
 # VISUALIZATION 1) Action counts
-action_plot <- watch_events |>
+action_plot <- watch_events_clean |>
   ggplot(aes(x = action, fill = action)) +
   geom_bar() +
   scale_fill_manual(values = c("exit_platform" = "#FF6B6B",
@@ -72,7 +77,7 @@ ggsave(
 # VISUALIZATION 2: Watch time vs video length
 video_view <- read_csv("data/raw/video_view.csv")
 
-watch_length_data <- watch_events |>
+watch_length_data <- watch_events_clean |>
   left_join(video_view |>
       select(video_id, video_length_sec),
     by = "video_id") |>
