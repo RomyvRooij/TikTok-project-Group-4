@@ -51,7 +51,7 @@ make
    - **`Tiktokwatchevents`** the folder that holds information for solving this issue
         - `README` (explains the issue)
         - `scriptwatchevents.R` (script to download the dataset, clean the data, and make visualizations)
-        - `makefile` 
+        - `makefile`  (runs the watch event analysis)
         - **`outputwatchevents`** - 
             - `action_distribution.png` (action per category)
             - `watch_share_by_video_length.png` (Average percentage of each video watched by video length)
