@@ -1,4 +1,5 @@
 # Script to download TikTok impression data to data/raw folder
+install.packages(c("tidyverse", "ggplot2", "here"))
 library(here)
 
 # Create data/raw directory if it doesn't exist relative to the project root
