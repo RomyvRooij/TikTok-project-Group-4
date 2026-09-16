@@ -6,10 +6,10 @@ watch_raw <- "data/raw/watch_events.csv"
 dir.create("data/raw", recursive = TRUE, showWarnings = FALSE)
 
 # Check to see if the file already exists and otherwise download it:
-if (!file.exists(watch)) {
+if (!file.exists(watch_raw)) {
   data <- read_csv(url)
-  write_csv(data, watch)
+  write_csv(data, watch_raw)
 } else {
-  data <- read_csv(watch)}
+  data <- read_csv(watch_raw)}
 
-watch_events <- read_csv(watch)
+watch_events <- read_csv(watch_raw)
