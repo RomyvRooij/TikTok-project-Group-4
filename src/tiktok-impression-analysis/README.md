@@ -34,6 +34,10 @@ install.packages(c("tidyverse", "ggplot2", "here"))
    make
    ```
 
+OR you can run the download and analysis in following order:
+1. Run the Downloaddata.R file
+2. Run the Cleaingdata.R file
+3. Run the Visualization.R file
 ---
 
 ## Output
