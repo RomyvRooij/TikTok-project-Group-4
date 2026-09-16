@@ -1,10 +1,11 @@
-# TikTok Session Analysis
+# **TikTok Session Analysis**
 
-## About this project
+## *About this project*
 
-This project looks at TikTok user session data. The data contains information about
+This project looks at TikTok user session data. The data contains information about 
 different sessions, such as when a user logged in and logged out, how long the
-session lasted, how many videos were viewed, and how many seconds the user watched. A session represents one visit to TikTok by a user. It starts when the user logs in
+session lasted, how many videos were viewed, and how many seconds the user watched. 
+A session represents one visit to TikTok by a user. It starts when the user logs in
 and ends when they log out. Each session records information such as the start and
 end time, the session duration, the number of videos viewed, and the total number
 of seconds watched.
@@ -13,7 +14,7 @@ The goal of the analysis is to better understand how users use TikTok during a
 session. I look at session duration, the number of videos viewed, watch time,
 and how the number of sessions changes over time.
 
-## Files in this folder
+## *Files in this folder*
 
 ### `download.R`
 
@@ -46,16 +47,16 @@ This folder contains the downloaded `sessions.csv` file used for the analysis.
 
 This folder contains the PNG visualizations created by `analysis.R`.
 
-## How to run the analysis
+## *How to run the analysis*
 
 Make sure you are working in the `tiktok-session-analysis-ana-maria` folder before running the scripts.
 
-### Option 1: Run the scripts separately
+### _Option 1: Run the scripts separately_
 
 First, download the data by running `source("download.R")` in R. This downloads the session data and saves it as `data/sessions.csv`.
 
 Then, run the analysis by using `source("analysis.R")` in R. This loads and cleans the data, performs the analysis, and creates the visualizations in the `output` folder.
 
-### Option 2: Use the Makefile
+### _Option 2: Use the Makefile_
 
 You can also run the analysis using the Makefile. Open the Terminal in the `tiktok-session-analysis-ana-maria` folder and run `make`. The Makefile checks which files are already available and runs the necessary scripts to create the required outputs.
