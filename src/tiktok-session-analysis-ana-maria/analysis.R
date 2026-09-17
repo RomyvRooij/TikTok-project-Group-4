@@ -2,13 +2,15 @@
 
 library(tidyverse)
 
+
 # -------------------------
 # 1. Load data
 # -------------------------
 
-sessions <- read_csv("data/raw/sessions.csv")
-dir.create("output", showWarnings = FALSE)
-dir.create("data/processed", recursive = TRUE, showWarnings = FALSE)
+sessions <- read_csv("../../data/raw/sessions.csv")
+# Ensure output directory for figures lives under the project folder
+dir.create("output", recursive = TRUE, showWarnings = FALSE)
+dir.create("../../data/processed", recursive = TRUE, showWarnings = FALSE)
 
 # -------------------------
 # 2. Clean data
@@ -54,7 +56,7 @@ cat("Rows removed:        ", n_before - n_after, "\n")
 #save cleaned dataset
 write_csv(
   sessions_clean,
-  "data/processed/sessions_clean.csv"
+  "../../data/processed/sessions_clean.csv"
 )
 
 glimpse(sessions_clean)
