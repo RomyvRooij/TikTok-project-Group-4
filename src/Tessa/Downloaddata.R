@@ -1,9 +1,8 @@
-# R-script
-getwd()
+
+
 
 # Create data folder if it does not exist
-dir.create("data", showWarnings = FALSE)
-
+dir.create("data/raw", recursive = TRUE, showWarnings = FALSE)
 # Define URL and destination file
 url <- "https://raw.githubusercontent.com/hannesdatta/course-dprep/refs/heads/main/material/project/coaching_2_data/users.csv"
 destination <- "data/raw/users.csv"
