@@ -1,6 +1,6 @@
 # Download TikTok session data
 
-data_dir <- "data/raw"
+data_dir <- "../../data/raw"
 
 # Create data folder if it does not exist
 dir.create(data_dir, 
