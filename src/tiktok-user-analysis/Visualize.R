@@ -46,4 +46,3 @@ dir.create("output/user_analysis", showWarnings = FALSE)
 ggsave("output/user_analysis/average_preferences.png", plot = plot_preferences,
        width = 8, height = 5, dpi = 300)
 
-plot_preferences
