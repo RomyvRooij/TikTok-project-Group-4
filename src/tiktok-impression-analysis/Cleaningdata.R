@@ -25,11 +25,6 @@ print(colSums(is.na(impressions_clean)))
 print("\n=== SOURCE DISTRIBUTION ===")
 print(table(impressions_clean$source))
 
-print("\n=== TIMESTAMP CHECK ===")
-print(paste("Missing timestamps:", sum(is.na(impressions_clean$shown_at))))
-print(paste("First timestamp:", impressions_clean$shown_at[1]))
-print(paste("Last timestamp:", impressions_clean$shown_at[nrow(impressions_clean)]))
-
 # Create processed directory if needed relative to project root
 processed_dir <- here("data", "processed")
 if (!dir.exists(processed_dir)) {
