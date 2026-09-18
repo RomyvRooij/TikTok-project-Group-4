@@ -6,8 +6,10 @@ data_dir <- "data/raw"
 dir.create(data_dir, 
   recursive = TRUE,
   showWarnings = FALSE)
+
 # URL of the session data
 url <- "https://raw.githubusercontent.com/hannesdatta/course-dprep/refs/heads/main/material/project/coaching_2_data/sessions.csv"
+
 
 # Download the data if the file does not exist yet
 data_file <- file.path(data_dir, "sessions.csv")
