@@ -1,6 +1,10 @@
 
 # Ignore dataset directory
-data/
+data/processed/
+data/raw/
 
 # Ignore output directory
-output/
+output/impressions
+output/sessions
+output/users
+output/watch_events
