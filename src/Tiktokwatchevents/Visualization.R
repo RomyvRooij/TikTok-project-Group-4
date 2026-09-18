@@ -25,7 +25,7 @@ action_plot <- watch_events_clean |>
     x = NULL, y = "Number of watch events")
 
 ggsave(
-  filename = "src/Tiktokwatchevents/outputwatchevents/action_distribution.png",
+  filename = "output/action_distribution.png",
   plot = action_plot,
   width = 8,
   height = 5)
@@ -70,7 +70,7 @@ watch_length_plot <- watch_length_summary |>
     y = "Average share watched")
 
 ggsave(
-  filename = "src/Tiktokwatchevents/outputwatchevents/watch_share_by_video_length.png",
+  filename = "output/watch_share_by_video_length.png",
   plot = watch_length_plot,
   width = 8,
   height = 5)
