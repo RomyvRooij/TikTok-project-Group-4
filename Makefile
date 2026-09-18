@@ -1,14 +1,14 @@
 #User analysis
 all: output/average_preferences.png
 
-data/raw/users.csv: src/tiktok-user-analysis/Downloaddata.R
-	Rscript -e "source('src/tiktok-user-analysis/Downloaddata.R')"
+output/average_preferences.png: data/processed/users_clean.csv src/tiktok-user-analysis/Visualize.R
+	Rscript -e "source('src/tiktok-user-analysis/Visualize.R')"
 
 data/processed/users_clean.csv: data/raw/users.csv src/tiktok-user-analysis/Cleandata.R
 	Rscript -e "source('src/tiktok-user-analysis/Cleandata.R')"
 
-output/average_preferences.png: data/processed/users_clean.csv src/tiktok-user-analysis/Visualize.R
-	Rscript -e "source('src/tiktok-user-analysis/Visualize.R')"
+data/raw/users.csv: src/tiktok-user-analysis/Downloaddata.R
+	Rscript -e "source('src/tiktok-user-analysis/Downloaddata.R')"
 
 clean:
 	rm -rf data/raw data/processed output
