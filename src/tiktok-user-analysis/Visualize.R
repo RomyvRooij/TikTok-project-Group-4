@@ -40,10 +40,10 @@ plot_preferences <- ggplot(avg_preferences, aes(x = category, y = mean_preferenc
   theme_minimal()
 
 # Create output folder if it does not exist
-dir.create("output", showWarnings = FALSE)
+dir.create("output/user_analysis", showWarnings = FALSE)
 
 # Save plot
-ggsave("output/average_preferences.png", plot = plot_preferences,
+ggsave("output/user_analysis/average_preferences.png", plot = plot_preferences,
        width = 8, height = 5, dpi = 300)
 
 plot_preferences
