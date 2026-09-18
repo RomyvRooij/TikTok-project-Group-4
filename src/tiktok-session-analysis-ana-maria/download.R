@@ -1,12 +1,11 @@
 # Download TikTok session data
 
-data_dir <- "../../data/raw"
+data_dir <- "data/raw"
 
 # Create data folder if it does not exist
 dir.create(data_dir, 
   recursive = TRUE,
   showWarnings = FALSE)
-
 # URL of the session data
 url <- "https://raw.githubusercontent.com/hannesdatta/course-dprep/refs/heads/main/material/project/coaching_2_data/sessions.csv"
 
