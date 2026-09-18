@@ -3,7 +3,7 @@ library(tidyverse)
 watch_events_clean <- read_csv("data/processed/watch_events_clean.csv")
 
 #CREATE DATA FOLDER
-dir.create("src/Tiktokwatchevents/outputwatchevents", recursive = TRUE, showWarnings = FALSE)
+dir.create("output", recursive = TRUE, showWarnings = FALSE)
 
 # VISUALIZATION 1) Action counts
 action_plot <- watch_events_clean |>
