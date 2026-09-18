@@ -113,8 +113,8 @@ clean:
 	rm -f data/raw/watch_events.csv
 	rm -f data/raw/video_view.csv
 	rm -f data/processed/watch_events_clean.csv
-	rm -f src/Tiktokwatchevents/outputwatchevents/action_distribution.png
-	rm -f src/Tiktokwatchevents/outputwatchevents/watch_share_by_video_length.png
+	rm -f output/action_distribution.png
+	rm -f output/watch_share_by_video_length.png
 	rm -f data/raw/impressions.csv
 	rm -f data/processed/impressions_clean.csv
 	rm -f output/Plot_*.png
