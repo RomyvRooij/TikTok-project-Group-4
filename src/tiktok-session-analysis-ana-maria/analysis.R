@@ -9,7 +9,7 @@ library(tidyverse)
 
 sessions <- read_csv("data/raw/sessions.csv")
 # Ensure output directory for figures lives under the project folder
-dir.create("output", recursive = TRUE, showWarnings = FALSE)
+dir.create("output/sessions", recursive = TRUE, showWarnings = FALSE)
 dir.create("data/processed", recursive = TRUE, showWarnings = FALSE)
 
 # -------------------------
@@ -94,7 +94,7 @@ duration_plot <- ggplot(
   )
 
 ggsave(
-  "output/session_duration.png",
+  "output/sessions/session_duration.png",
   duration_plot,
   width = 8,
   height = 5
@@ -133,7 +133,7 @@ videos_plot <- ggplot(
   )
 
 ggsave(
-  "output/videos_viewed.png",
+  "output/sessions/videos_viewed.png",
   videos_plot,
   width = 8,
   height = 5
@@ -172,7 +172,7 @@ watch_plot <- ggplot(
   )
 
 ggsave(
-  "output/watch_seconds.png",
+  "output/sessions/watch_seconds.png",
   watch_plot,
   width = 8,
   height = 5
@@ -218,7 +218,7 @@ duration_videos_plot <- ggplot(
   )
 
 ggsave(
-  "output/duration_vs_videos.png",
+  "output/sessions/duration_vs_videos.png",
   duration_videos_plot,
   width = 8,
   height = 5
@@ -264,7 +264,7 @@ videos_watch_plot <- ggplot(
   )
 
 ggsave(
-  "output/videos_vs_watch_time.png",
+  "output/sessions/videos_vs_watch_time.png",
   videos_watch_plot,
   width = 8,
   height = 5
@@ -304,7 +304,7 @@ sessions_time_plot <- ggplot(
   )
 
 ggsave(
-  "output/sessions_over_time.png",
+  "output/sessions/sessions_over_time.png",
   sessions_time_plot,
   width = 8,
   height = 5
@@ -346,7 +346,7 @@ user_sessions_plot <- ggplot(
   )
 
 ggsave(
-  "output/sessions_by_user.png",
+  "output/sessions/sessions_by_user.png",
   user_sessions_plot,
   width = 8,
   height = 5
