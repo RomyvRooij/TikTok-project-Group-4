@@ -10,12 +10,7 @@ if (!file.exists(watch_raw)) {
   data <- read_csv(url)
   write_csv(data, watch_raw)
 } else {
-  data <- read_csv(watch_raw)}
+  data <- read_csv(watch_raw)
+}
 
 watch_events <- read_csv(watch_raw)
-url_video <- "https://raw.githubusercontent.com/hannesdatta/course-dprep/refs/heads/main/material/project/coaching_2_data/video_view.csv"
-video_raw <- "data/raw/video_view.csv"
-
-if (!file.exists(video_raw)) {
-  data_video <- read_csv(url_video)
-  write_csv(data_video, video_raw)
