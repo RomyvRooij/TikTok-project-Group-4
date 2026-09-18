@@ -26,15 +26,15 @@ data/raw/users.csv: src/tiktok-user-analysis/Downloaddata.R
 # =====================
 
 watch: \
-	src/Tiktokwatchevents/outputwatchevents/action_distribution.png \
-	src/Tiktokwatchevents/outputwatchevents/watch_share_by_video_length.png
+	output/action_distribution.png \
+	output/watch_share_by_video_length.png
 
-src/Tiktokwatchevents/outputwatchevents/action_distribution.png \
-src/Tiktokwatchevents/outputwatchevents/watch_share_by_video_length.png: \
+output/action_distribution.png \
+output/watch_share_by_video_length.png: \
 	data/processed/watch_events_clean.csv \
 	data/raw/video_view.csv \
 	src/Tiktokwatchevents/Visualization.R
-	mkdir -p src/Tiktokwatchevents/outputwatchevents
+	mkdir -p output
 	Rscript src/Tiktokwatchevents/Visualization.R
 
 data/processed/watch_events_clean.csv: data/raw/watch_events.csv src/Tiktokwatchevents/Cleandata.R
