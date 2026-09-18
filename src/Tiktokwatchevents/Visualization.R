@@ -3,7 +3,7 @@ library(tidyverse)
 watch_events_clean <- read_csv("data/processed/watch_events_clean.csv")
 
 #CREATE DATA FOLDER
-dir.create("output", recursive = TRUE, showWarnings = FALSE)
+dir.create("output/watch_events", recursive = TRUE, showWarnings = FALSE)
 
 # VISUALIZATION 1) Action counts
 action_plot <- watch_events_clean |>
@@ -25,7 +25,7 @@ action_plot <- watch_events_clean |>
     x = NULL, y = "Number of watch events")
 
 ggsave(
-  filename = "output/action_distribution.png",
+  filename = "output/watch_events/action_distribution.png",
   plot = action_plot,
   width = 8,
   height = 5)
@@ -70,7 +70,7 @@ watch_length_plot <- watch_length_summary |>
     y = "Average share watched")
 
 ggsave(
-  filename = "output/watch_share_by_video_length.png",
+  filename = "output/watch_events/watch_share_by_video_length.png",
   plot = watch_length_plot,
   width = 8,
   height = 5)
