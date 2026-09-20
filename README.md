@@ -78,9 +78,23 @@ make
       - `Plot_4_position_distribution.png`
 
    - **tiktok-session-analysis/** - contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder. 
-      ## Overview
-
-      ## Output
+   ## Overview
+   This folder inspects and analyzes TikTok session data to understand user engagement patterns and viewing habits across sessions. Key aspects of the analysis include:
+   - Distribution of session durations
+   - Number of sessions per user
+   - Trends in session activity over time
+   - Relationship between number of videos viewed and total watch time
+   - Relationship between session duration and number of videos watched
+   - Cleaning and preparation of the session data for analysis
+   ## Output
+   Running the pipeline will automatically fetch the raw data, clean and process it, and save the generated visual reports to `output/sessions`:
+   - `session_duration.png` — distribution of how long sessions typically last.
+   - `sessions_by_user.png` — number of sessions per user, highlighting more and less active users.
+   - `sessions_over_time.png` — session activity trends over time.
+   - `videos_viewed.png` — how many videos are watched in a typical session.
+   - `videos_vs_watch_time.png` — whether watching more videos also means watching longer overall.
+   - `duration_vs_videos.png` — whether longer sessions tend to include more videos.
+   - `watch_seconds.png` — total watch time per session, in seconds.
 
 
    - **tiktok-user-analysis/** - - contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder. 
