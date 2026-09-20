@@ -63,22 +63,28 @@ make
    - **watch_events/** the plots from the watch_events analysis
 
 3. src
-   - ### `tiktok-impression-analysis/`
-      #### Overview
-      This folder inspects and analyzes TikTok feed impression data to evaluate content delivery and ranking mechanisms. Key aspects of the analysis include:
-      - Mix of feed sources (e.g., followed, recommended, explore)
-      - Distribution of total ranking scores across different feed sources
-      - Analysis of feed position placement
-      - Detection and removal of duplicated or malformed impressions
-      #### Output
-      Running the pipeline will automatically fetch the raw data, clean and process it, and save the generated visual reports to `output/impressions`:
-      - `Plot_1_source_distribution.png`
-      - `Plot_2_ranking_scores_distribution.png`
-      - `Plot_3_ranking_by_source.png`
-      - `Plot_4_position_distribution.png`
+3. src
 
-   - ### `tiktok-session-analysis/`
-Contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder.
+   ### `tiktok-impression-analysis/`
+   Contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder.
+
+   #### Overview
+   This folder inspects and analyzes TikTok feed impression data to evaluate content delivery and ranking mechanisms. Key aspects of the analysis include:
+   - Mix of feed sources (e.g., followed, recommended, explore)
+   - Distribution of total ranking scores across different feed sources
+   - Analysis of feed position placement
+   - Detection and removal of duplicated or malformed impressions
+
+   #### Output
+   Running the pipeline will automatically fetch the raw data, clean and process it, and save the generated visual reports to `output/impressions`:
+   - `Plot_1_source_distribution.png`
+   - `Plot_2_ranking_scores_distribution.png`
+   - `Plot_3_ranking_by_source.png`
+   - `Plot_4_position_distribution.png`
+
+   ### `tiktok-session-analysis/`
+   Contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder.
+
    #### Overview
    This folder inspects and analyzes TikTok session data to understand user engagement patterns and viewing habits across sessions. Key aspects of the analysis include:
    - Distribution of session durations
@@ -87,7 +93,8 @@ Contains the R scripts for downloading, cleaning, and visualization of the data.
    - Relationship between number of videos viewed and total watch time
    - Relationship between session duration and number of videos watched
    - Cleaning and preparation of the session data for analysis
-     #### Output
+
+   #### Output
    Running the pipeline will automatically fetch the raw data, clean and process it, and save the generated visual reports to `output/sessions`:
    - `session_duration.png` — distribution of how long sessions typically last.
    - `sessions_by_user.png` — number of sessions per user, highlighting more and less active users.
@@ -97,30 +104,40 @@ Contains the R scripts for downloading, cleaning, and visualization of the data.
    - `duration_vs_videos.png` — whether longer sessions tend to include more videos.
    - `watch_seconds.png` — total watch time per session, in seconds.
 
+   ### `tiktok-user-analysis/`
+   Contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder.
 
-   - ### `tiktok-user-analysis/`
-    - - contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder. 
-      #### Overview
+   #### Overview
+   [Fill in: what does the user-analysis script examine?]
 
-      #### Output
+   #### Output
+   Running the pipeline will automatically fetch the raw data, clean and process it, and save the generated visual reports to `output/users`:
+   - [Fill in: actual .png filenames]
 
+   ### `tiktok_watch_events-analysis/`
+   Contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder.
 
-   - ### `tiktok_watch_events-analysis/`
-      #### Overview
-      This folder inspects and analyzes TikTok watch event data to understand how users react to videos and how viewing behaviour relates to video characteristics. Key aspects of the analysis include:
-      - Distribution of user actions (e.g., watched in full, skipped immediately, skipped after partially watching, exited the platform)
-      - Normalisation of mixed timestamp formats in `started_at_raw`
-      - Validation of the cleaned timestamps against the provided `started_at` variable
-      - Analysis of watch behaviour in relation to video length
-      - Cleaning and preparation of the watch event data for analysis
-      #### Output
-      Running the pipeline will automatically fetch the raw data, clean and process it, and save the generated visual reports to `output/watch_events`:
-      - `action_distribution.png`
-      - `watch_share_by_video_length.png`
+   #### Overview
+   This folder inspects and analyzes TikTok watch event data to understand how users react to videos and how viewing behaviour relates to video characteristics. Key aspects of the analysis include:
+   - Distribution of user actions (e.g., watched in full, skipped immediately, skipped after partially watching, exited the platform)
+   - Normalisation of mixed timestamp formats in `started_at_raw`
+   - Validation of the cleaned timestamps against the provided `started_at` variable
+   - Analysis of watch behaviour in relation to video length
+   - Cleaning and preparation of the watch event data for analysis
 
-   - Downloaddata.R — script to download the dataset
-   - summary.qmd — Quarto file that reads the data and produces the summary
-   - summary.html — rendered output of `summary.qmd`
+   #### Output
+   Running the pipeline will automatically fetch the raw data, clean and process it, and save the generated visual reports to `output/watch_events`:
+   - `action_distribution.png`
+   - `watch_share_by_video_length.png`
+
+   ### `Downloaddata.R`
+   Script to download the dataset.
+
+   ### `summary.qmd`
+   Quarto file that reads the data and produces the summary.
+
+   ### `summary.html`
+   Rendered output of `summary.qmd`.
 
 4. .gitignore (ensures the data folder is not tracked by Git)
 4. AI.md (description of AI usage)
