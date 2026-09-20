@@ -26,50 +26,89 @@ To set up the project environment:
 
 ## **Reproducing the analysis**
 
-To reproduce the full analysis, the files need to be run in the correct order.
+The full project can be reproduced using the Makefile from the root of the repository.
 
-### 1. Download the data
-`src/Downloaddata.R`  
-   Run this first (e.g. `Rscript src/Downloaddata.R` in the terminal). This downloads the dataset from the provided URL and saves it to `data/raw/video_view.csv`. If the file already exists, it will skip the download and just read the existing file.
+Run in the terminal:
 
 ```
-Rscript src/Downloaddata.R
-```
-
-### 2. Render the analysis
-`src/summary.qmd`  
-   Once the data is downloaded, render this Quarto file to produce the summary report (e.g. `quarto render src/summary.qmd` in the terminal). This reads `data/raw/video_view.csv` and produces `src/summary.html` with an overview of the dataset, key statistics, and visualizations.
-
-```
-quarto render src/summary.qmd
+make
 ```
 
 ## **Group member and contributions**
 *Tessa Breusers* 
 - Made the data folder, added gitkeep because they were empty, wrote the whole README and set up folder structure.
+- made the analysis section of users.
 
 *Romy van Rooij* 
 - Made the tiktok project, made a start on the Quarto summary, performed final updates on the README to improve clarity and structure.
+- Made the analysis section of watch events and updated this README file afterwards.
 
 *Ana Maria Iacob* 
 - Completed the Quarto summary in summary.qmd, using the downloaded video data, saved it in the correct folder, and checked that it renders without errors. I also kept the project structure organized with the data in data/raw and the analysis files in src.
+- made the analysis section of sessions. 
 
 *Elsemieke van Gent* 
 - Made the Downloaddata.R script and wrote the code for downloading the data. Added the .gitignore file and made sure that the data would not be tracked.
+- made the analysis section of impressions. Also made sure the general Makefile runs smoothly and without errors.
 
 ## **Structure**
 1. data
    - **raw/** — original downloaded data (ignored by Git)
-   - **processed/** — reserved for cleaned/derived data (ignored by Git)
+   - **processed/** — reserved for cleaned/derived datasets (ignored by Git)
 
-2. src
-   - **Downloaddata.R** — script to download the dataset
-   - **summary.qmd** — Quarto file that reads the data and produces the summary
-   - **summary.html** — rendered output of `summary.qmd`
+2. output
+   - **impressions/** - the plots from the impression analysis
+   - **sessions/** - the plots from the session analysis
+   - **users/** the plots from the users analysis
+   - **watch_events/** the plots from the watch_events analysis
 
-3. .gitignore (ensures the data folder is not tracked by Git)
+3. src
+   - **tiktok-impression-analysis/** 
+      ## Overview
+      This folder inspects and analyzes TikTok feed impression data to evaluate content delivery and ranking mechanisms. Key aspects of the analysis include:
+      - Mix of feed sources (e.g., followed, recommended, explore)
+      - Distribution of total ranking scores across different feed sources
+      - Analysis of feed position placement
+      - Detection and removal of duplicated or malformed impressions
+      ## Output
+      Running the pipeline will automatically fetch the raw data, clean and process it, and save the generated visual reports to `output/impressions`:
+      - `Plot_1_source_distribution.png`
+      - `Plot_2_ranking_scores_distribution.png`
+      - `Plot_3_ranking_by_source.png`
+      - `Plot_4_position_distribution.png`
+
+   - **tiktok-session-analysis/** - contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder. 
+      ## Overview
+
+      ## Output
+
+
+   - **tiktok-user-analysis/** - - contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder. 
+      ## Overview
+
+      ## Output
+
+
+   - **tiktok_watch_events-analysis/** - 
+      ## Overview
+      This folder inspects and analyzes TikTok watch event data to understand how users react to videos and how viewing behaviour relates to video characteristics. Key aspects of the analysis include:
+      - Distribution of user actions (e.g., watched in full, skipped immediately, skipped after partially watching, exited the platform)
+      - Normalisation of mixed timestamp formats in `started_at_raw`
+      - Validation of the cleaned timestamps against the provided `started_at` variable
+      - Analysis of watch behaviour in relation to video length
+      - Cleaning and preparation of the watch event data for analysis
+      ## Output
+      Running the pipeline will automatically fetch the raw data, clean and process it, and save the generated visual reports to `output/watch_events`:
+      - `action_distribution.png`
+      - `watch_share_by_video_length.png`
+
+   - Downloaddata.R — script to download the dataset
+   - summary.qmd — Quarto file that reads the data and produces the summary
+   - summary.html — rendered output of `summary.qmd`
+
+4. .gitignore (ensures the data folder is not tracked by Git)
 4. AI.md (description of AI usage)
-5. README.md (explains the project)
+5. README.md (explains the whole project)
 
 Note: the data folder is excluded from Git via .gitignore, so raw and processed data files are never committed. Empty subfolders are kept using .gitkeep placeholder files, since Git does not track empty directories.
 
