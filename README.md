@@ -79,7 +79,7 @@ make
 
    - ### `tiktok-session-analysis/`
 Contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder.
-    #### Overview
+   #### Overview
    This folder inspects and analyzes TikTok session data to understand user engagement patterns and viewing habits across sessions. Key aspects of the analysis include:
    - Distribution of session durations
    - Number of sessions per user
