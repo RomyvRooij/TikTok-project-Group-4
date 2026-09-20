@@ -63,7 +63,6 @@ make
    - **watch_events/** the plots from the watch_events analysis
 
 3. src
-3. src
 
    ### `tiktok-impression-analysis/`
    Contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder.
@@ -140,8 +139,8 @@ make
    Rendered output of `summary.qmd`.
 
 4. .gitignore (ensures the data folder is not tracked by Git)
-4. AI.md (description of AI usage)
-5. README.md (explains the whole project)
+5. AI.md (description of AI usage)
+6. README.md (explains the whole project)
 
 Note: the data folder is excluded from Git via .gitignore, so raw and processed data files are never committed. Empty subfolders are kept using .gitkeep placeholder files, since Git does not track empty directories.
 
