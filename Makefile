@@ -1,6 +1,6 @@
 .PHONY: all user watch downloaddata impressions sessions clean
 
-all: user watch downloaddata impressions sessions
+all: downloaddata user watch impressions sessions
 
 # =====================
 # Download data
