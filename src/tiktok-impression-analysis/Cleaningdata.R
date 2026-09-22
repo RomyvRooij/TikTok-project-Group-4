@@ -23,7 +23,7 @@ print("\n=== MISSING VALUES ===")
 print(colSums(is.na(impressions_clean)))
 
 print("\n=== SOURCE DISTRIBUTION ===")
-print(table(impressions_clean$source))
+print(table(impressions_clean$source_bucket))
 
 # Create processed directory if needed relative to project root
 processed_dir <- here("data", "processed")
