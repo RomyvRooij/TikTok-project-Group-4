@@ -12,6 +12,6 @@ This folder will contain my analysis scripts for the TikTok project.
 
 ## Using the Makefile
 
-You can also run the full pipeline with `make`. Run it from the project root (not from this `src/Tessa` folder), for example:
+You can also run the full pipeline with `make`. Run it from the project root (not from this `src/tiktok-user-analysis` folder), for example:
 
 `make output/average_preferences.png`
