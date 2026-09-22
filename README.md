@@ -33,6 +33,31 @@ Run in the terminal:
 ```
 make
 ```
+## Project workflow
+
+The project follows these main steps:
+
+1. Raw TikTok data is downloaded and stored in `data/raw/`.
+2. The analysis scripts clean and prepare the relevant data.
+3. The cleaned data is stored in `data/processed/` where applicable.
+4. The analysis scripts generate visualizations.
+5. The visualizations are saved in the corresponding `output/` folders.
+6. `summary.qmd` combines the project results into the final summary.
+
+The Makefile automates the workflow and ensures that the required steps are run in the correct order.
+
+## Troubleshooting
+
+If `make` does not run as expected, check the following:
+
+- Make sure you are running `make` from the root of the repository.
+- Make sure R and all required packages are installed.
+- Make sure you have cloned the repository correctly.
+- Make sure the required data can be downloaded using the project's download scripts.
+
+If an expected output is missing, check the corresponding analysis folder in `src/` and run `make` again.
+
+If the problem persists, check the error message in the terminal to identify which script or dependency caused the issue.
 
 ## **Group member and contributions**
 *Tessa Breusers* 
@@ -107,11 +132,12 @@ make
    Contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder.
 
    #### Overview
-   [Fill in: what does the user-analysis script examine?]
+   This folder analyzes TikTok user preferences to explore differences in average preferences across users.
 
    #### Output
-   Running the pipeline will automatically fetch the raw data, clean and process it, and save the generated visual reports to `output/users`:
-   - [Fill in: actual .png filenames]
+   Running the pipeline generates the visual report in `output/users`:
+
+- `average_preferences.png` — visualization of the average user preferences.
 
    ### `tiktok_watch_events-analysis/`
    Contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder.
@@ -143,5 +169,25 @@ make
 6. README.md (explains the whole project)
 
 Note: the data folder is excluded from Git via .gitignore, so raw and processed data files are never committed. Empty subfolders are kept using .gitkeep placeholder files, since Git does not track empty directories.
+
+## Peer review and pull requests
+
+Team members worked on separate branches and contributed their changes
+through pull requests. Pull requests were reviewed by another team
+member, feedback was addressed where applicable, and the updated
+changes were checked before merging into `main`.
+
+| Pull request | Contribution | Author | Reviewer | Feedback addressed |
+|---|---|---|---|---|
+| #11 | User analysis | Tessa Breusers | Ana Maria Iacob | Yes |
+| #12 | Impression analysis | Elsemieke van Gent | Tessa Breusers | Yes |
+| #13 | Session analysis | Ana Maria Iacob | Romy van Rooij | Yes |
+| #14 | Watch events analysis | Romy van Rooij | Elsemieke van Gent | Yes |
+
+The review process included feedback on code structure, data paths,
+README documentation, Makefile functionality, and reproducibility.
+After feedback was addressed, the relevant workflows were tested
+before the pull requests were merged into `main`.
+
 
 Group 4
