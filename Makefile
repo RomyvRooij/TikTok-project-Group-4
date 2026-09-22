@@ -40,17 +40,17 @@ watch: output/watch_events/action_distribution.png output/watch_events/watch_sha
 
 output/watch_events/action_distribution.png output/watch_events/watch_share_by_video_length.png: \
 	data/processed/watch_events_clean.csv data/raw/video_view.csv \
-	src/Tiktokwatchevents/Visualization.R
+	src/Tiktok-watch_events-analysis/Visualization.R
 	mkdir -p output/watch_events
-	Rscript src/Tiktokwatchevents/Visualization.R
+	Rscript src/Tiktok-watch_events-analysis/Visualization.R
 
-data/processed/watch_events_clean.csv: data/raw/watch_events.csv src/Tiktokwatchevents/Cleandata.R
+data/processed/watch_events_clean.csv: data/raw/watch_events.csv src/Tiktok-watch_events-analysis/Cleandata.R
 	mkdir -p data/processed
-	Rscript src/Tiktokwatchevents/Cleandata.R
+	Rscript src/Tiktok-watch_events-analysis/Cleandata.R
 
-data/raw/watch_events.csv: src/Tiktokwatchevents/Downloaddata.R
+data/raw/watch_events.csv: src/Tiktok-watch_events-analysis/Downloaddata.R
 	mkdir -p data/raw
-	Rscript src/Tiktokwatchevents/Downloaddata.R
+	Rscript src/Tiktok-watch_events-analysis/Downloaddata.R
 
 
 # =====================
@@ -85,17 +85,17 @@ sessions: data/processed/sessions_clean.csv output/sessions/session_duration.png
 
 output/sessions/session_duration.png output/sessions/videos_viewed.png output/sessions/watch_seconds.png \
 output/sessions/duration_vs_videos.png output/sessions/sessions_over_time.png output/sessions/sessions_by_user.png \
-output/sessions/videos_vs_watch_time.png: data/processed/sessions_clean.csv src/tiktok-session-analysis-ana-maria/analysis.R
+output/sessions/videos_vs_watch_time.png: data/processed/sessions_clean.csv src/tiktok-session-analysis/analysis.R
 	mkdir -p output/sessions
-	Rscript src/tiktok-session-analysis-ana-maria/analysis.R
+	Rscript src/tiktok-session-analysis/analysis.R
 
-data/processed/sessions_clean.csv: data/raw/sessions.csv src/tiktok-session-analysis-ana-maria/analysis.R
+data/processed/sessions_clean.csv: data/raw/sessions.csv src/tiktok-session-analysis/analysis.R
 	mkdir -p data/processed
-	Rscript src/tiktok-session-analysis-ana-maria/analysis.R
+	Rscript src/tiktok-session-analysis/analysis.R
 
-data/raw/sessions.csv: src/tiktok-session-analysis-ana-maria/download.R
+data/raw/sessions.csv: src/tiktok-session-analysis/download.R
 	mkdir -p data/raw
-	Rscript src/tiktok-session-analysis-ana-maria/download.R
+	Rscript src/tiktok-session-analysis/download.R
 
 
 # =====================
