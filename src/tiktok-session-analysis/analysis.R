@@ -276,7 +276,12 @@ ggsave(
 
 sessions_by_day <- sessions_clean %>%
   mutate(date = as.Date(login_at)) %>%
-  count(date)
+  count(date) %>%
+  arrange(date) %>%
+  mutate(
+    previous_day_sessions = lag(n),
+    sessions_change = n - previous_day_sessions
+  )
 
 sessions_time_plot <- ggplot(
   sessions_by_day,
@@ -316,8 +321,11 @@ ggsave(
 # -------------------------
 
 sessions_by_user <- sessions_clean %>%
-  count(user_id, name = "sessions")
-
+  count(user_id, name = "sessions") %>%
+  mutate(
+    session_rank = rank(-sessions, ties.method = "min")
+  ) %>%
+  arrange(session_rank)
 user_sessions_plot <- ggplot(
   sessions_by_user,
   aes(x = sessions)
