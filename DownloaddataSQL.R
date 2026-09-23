@@ -44,17 +44,12 @@ cat("\n=== LOADING DATA ===\n")
 
 # Load all tables from the database
 # (Update these table names based on what's actually in your database)
-impressions <- dbReadTable(con, "impressions")
-sessions <- dbReadTable(con, "sessions")
 users <- dbReadTable(con, "users")
-watch_events <- dbReadTable(con, "watch_events")
 video_view <- dbReadTable(con, "video_view")
 
 dbDisconnect(con)
 
 cat("Data loaded successfully!\n")
-cat("Impressions:", nrow(impressions), "rows\n")
-cat("Sessions:", nrow(sessions), "rows\n")
 cat("Users:", nrow(users), "rows\n")
-cat("Watch events:", nrow(watch_events), "rows\n")
 cat("Video view:", nrow(video_view), "rows\n")
+
