@@ -8,3 +8,6 @@ output/impressions
 output/sessions
 output/users
 output/watch_events
+
+/.quarto/
+**/*.quarto_ipynb
