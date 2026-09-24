@@ -32,7 +32,7 @@ model2 <- lm(
 )
 summary(model2)
 
-# 5. Model met user fixed effects
+# 5. Model with user fixed effects
 model3 <- lm(
   watch_seconds ~ score_total + feed_rank + score_category_match +
     score_creator_match + score_satiation_penalty + source_bucket + user_id,
@@ -40,12 +40,12 @@ model3 <- lm(
 )
 summary(model3)
 
-# 6. Plot: relatie tussen score_total en watch_seconds
+# 6. Plot: relation between score_total and watch_seconds
 ggplot(reg_data, aes(x = score_total, y = watch_seconds)) +
   geom_point(alpha = 0.2) +
   geom_smooth(method = "lm", color = "blue") +
   labs(
-    title = "Relatie tussen recommendation score en watch time",
+    title = "Relation between recommendation score and watch time",
     x = "Score total",
     y = "Watch seconds"
   )
