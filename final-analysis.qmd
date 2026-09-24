@@ -1,0 +1,443 @@
+---
+title: "TikTok Video Performance Analysis"
+author: "Group 4"
+format: pdf
+toc: true
+number-sections: true
+execute:
+  echo: true
+  warning: false
+  message: false
+output-dir: output
+---
+
+# 1. Introduction
+
+This project analyses TikTok video performance to better understand differences in reach and watch behaviour. The analysis begins with an exploration of the data, focusing on video and creator performance, including impressions, watch rates, and watch time.
+
+The analysis then uses regression models to examine whether characteristics of an impression are associated with the amount of time users spend watching the content. Together, these analyses provide insight into patterns in the data and the factors that are associated with user engagement.
+
+# 2. Data Inspection
+
+## 2.1 Loading the data
+
+The analysis uses the cleaned datasets stored in the project's processed data folder, as well as the original video-view dataset.
+
+```{r}
+library(here)
+library(tidyverse)
+
+# Video-view data
+views <- read.csv(
+  here("data", "raw", "video_view.csv")
+)
+
+# Cleaned impression data
+impressions <- read.csv(
+  here("data", "processed", "impressions_clean.csv")
+)
+
+# Cleaned watch-event data
+watch_events <- read.csv(
+  here("data", "processed", "watch_events_clean.csv")
+)
+```
+
+## 2.2 Video-view dataset overview
+
+The first step is to inspect the structure and quality of the video-view dataset.
+
+```{r}
+nrow(views)
+str(views)
+head(views)
+summary(views)
+colSums(is.na(views))
+```
+
+The dataset contains information about TikTok videos, including video length, impressions, watched views, creators, and watch rate.
+
+## 2.3 Impression dataset overview
+
+The impression dataset contains information about individual impressions, including user and content characteristics.
+
+```{r}
+nrow(impressions)
+str(impressions)
+head(impressions)
+summary(impressions)
+colSums(is.na(impressions))
+```
+
+## 2.4 Watch-event dataset overview
+
+The watch-event data contain information about users' watching behaviour.
+
+```{r}
+nrow(watch_events)
+str(watch_events)
+head(watch_events)
+summary(watch_events)
+colSums(is.na(watch_events))
+```
+
+# 3. Descriptive Analysis
+
+## 3.1 Overall video performance
+
+We first calculate several overall performance measures for the video-view dataset.
+
+```{r}
+overview <- views %>%
+  summarise(
+    videos = n(),
+    creators = n_distinct(creator_id),
+    avg_length = mean(video_length_sec, na.rm = TRUE),
+    avg_impressions = mean(impressions_n, na.rm = TRUE),
+    avg_watched = mean(watched_n, na.rm = TRUE),
+    avg_watch_rate = mean(watch_rate, na.rm = TRUE),
+    avg_watch_share = mean(
+      watched_n / impressions_n,
+      na.rm = TRUE
+    ),
+    avg_watch_seconds = mean(
+      video_length_sec * watched_n / impressions_n,
+      na.rm = TRUE
+    )
+  )
+
+overview
+```
+
+This provides an overall picture of the number of videos and creators in the dataset, as well as average reach and watching behaviour.
+
+## 3.2 Watch share
+
+To examine the proportion of impressions that resulted in a watched view, we calculate watch share as a percentage.
+
+```{r}
+views <- views %>%
+  mutate(
+    watched_pct = watched_n / impressions_n * 100
+  )
+
+head(views)
+```
+
+Watch share provides a measure of how much of the observed audience proceeded to watch the video.
+
+## 3.3 Most viewed video
+
+The video with the highest number of impressions is identified below.
+
+```{r}
+topvideo <- views %>%
+  filter(
+    impressions_n == max(
+      impressions_n,
+      na.rm = TRUE
+    )
+  )
+
+topvideo
+```
+
+This identifies the video that achieved the highest observed reach in the dataset.
+
+## 3.4 Distribution of video length
+
+The distribution of video length is visualised using a histogram.
+
+```{r}
+hist(
+  views$video_length_sec,
+  main = "Distribution of Video Length",
+  xlab = "Video length (seconds)"
+)
+```
+
+The distribution provides an overview of the typical length of videos in the dataset and whether particularly short or long videos are common.
+
+## 3.5 Videos with high watch rates
+
+We identify videos with a watch rate above 80%.
+
+```{r}
+goodvideos <- views %>%
+  filter(
+    watch_rate > 0.8
+  )
+
+nrow(goodvideos)
+```
+
+This shows how many videos achieved a relatively high watch rate according to the threshold used in the analysis.
+
+## 3.6 Top 10 videos by watch rate
+
+The ten videos with the highest watch rates are displayed below.
+
+```{r}
+top_watch_rate <- views %>%
+  select(
+    video_id,
+    creator_id,
+    impressions_n,
+    watched_n,
+    watch_rate
+  ) %>%
+  arrange(
+    desc(watch_rate)
+  ) %>%
+  slice_head(
+    n = 10
+  )
+
+top_watch_rate
+```
+
+This allows the videos with the strongest observed watch rates to be compared.
+
+## 3.7 Performance by creator
+
+Video performance is also aggregated at the creator level.
+
+```{r}
+creator_summary <- views %>%
+  group_by(creator_id) %>%
+  summarise(
+    videos = n(),
+    total_impressions = sum(
+      impressions_n,
+      na.rm = TRUE
+    ),
+    average_watch_rate = mean(
+      watch_rate,
+      na.rm = TRUE
+    )
+  ) %>%
+  arrange(
+    desc(total_impressions)
+  )
+
+creator_summary
+```
+
+This comparison provides insight into differences in reach and average watch rate between creators.
+
+# 4. Watch-Event Analysis
+
+## 4.1 Aggregating watch events
+
+The watch events are aggregated to the impression level. This creates a single total watch-time measure for each impression.
+
+```{r}
+watch_summary <- watch_events %>%
+  group_by(impression_id) %>%
+  summarise(
+    watch_seconds = sum(
+      watch_seconds,
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  )
+
+head(watch_summary)
+```
+
+## 4.2 Combining impression and watch data
+
+The aggregated watch data are joined to the impression data.
+
+```{r}
+reg_data <- impressions %>%
+  left_join(
+    watch_summary,
+    by = "impression_id"
+  ) %>%
+  mutate(
+    watch_seconds = ifelse(
+      is.na(watch_seconds),
+      0,
+      watch_seconds
+    ),
+    source_bucket = as.factor(source_bucket),
+    user_id = as.factor(user_id)
+  )
+
+head(reg_data)
+```
+
+The resulting dataset contains both the characteristics of each impression and the associated total watch time.
+
+## 4.3 Distribution of watch time
+
+The distribution of watch time is shown below.
+
+```{r}
+hist(
+  reg_data$watch_seconds,
+  main = "Distribution of Watch Time",
+  xlab = "Watch time (seconds)"
+)
+```
+
+The distribution shows how total watch time varies across impressions.
+
+# 5. Regression Analysis
+
+The regression analysis investigates the relationship between impression characteristics and total watch time.
+
+The dependent variable in all three models is `watch_seconds`.
+
+## 5.1 Simple regression
+
+The first model examines the relationship between `score_total` and watch time.
+
+```{r}
+model1 <- lm(
+  watch_seconds ~ score_total,
+  data = reg_data
+)
+
+summary(model1)
+```
+
+This model provides the baseline association between the total score and watch time without controlling for the other variables.
+
+## 5.2 Multiple regression
+
+The second model adds additional explanatory variables:
+
+- `feed_rank`
+- `score_category_match`
+- `score_creator_match`
+- `score_satiation_penalty`
+- `source_bucket`
+
+```{r}
+model2 <- lm(
+  watch_seconds ~ score_total +
+    feed_rank +
+    score_category_match +
+    score_creator_match +
+    score_satiation_penalty +
+    source_bucket,
+  data = reg_data
+)
+
+summary(model2)
+```
+
+The multiple regression allows the association between `score_total` and watch time to be examined while controlling for the other variables included in the model.
+
+## 5.3 User fixed effects
+
+The third model additionally controls for differences between users by including `user_id` as a factor.
+
+```{r}
+model3 <- lm(
+  watch_seconds ~ score_total +
+    feed_rank +
+    score_category_match +
+    score_creator_match +
+    score_satiation_penalty +
+    source_bucket +
+    user_id,
+  data = reg_data
+)
+
+summary(model3)
+```
+
+Including `user_id` controls for systematic differences between users that could otherwise be associated with differences in watch time.
+
+# 6. Conclusions
+
+The analysis looked at two main things: **how TikTok videos performed** and **which factors were related to how long users watched a video**.
+
+The descriptive analysis showed that video performance was very different across videos and creators. Some videos received many more impressions than others, and some videos had higher watch rates. This shows that not every video performed in the same way.
+
+### What did the regression analysis test?
+
+The main question was:
+
+**Is a higher TikTok recommendation score associated with a longer watch time?**
+
+To test this, the watch events were first combined for each impression. This gave the total number of seconds that the user watched after that impression.
+
+Three regression models were then tested.
+
+### Model 1: Recommendation score only
+
+The first model looked only at the relationship between `score_total` and `watch_seconds`.
+
+The result was **not statistically significant (p = 0.385)**. Therefore, this model did **not provide sufficient evidence of a relationship between the recommendation score and watch time**.
+
+In simple terms:
+
+> A higher recommendation score was not clearly associated with users watching the video for longer.
+
+### Model 2: Adding other recommendation factors
+
+The second model added:
+
+- feed rank
+- category matching
+- creator matching
+- satiation penalty
+- source
+
+After adding these variables, `score_total` had a positive coefficient of **0.61**. However, its p-value was **0.0501**, which is just above the conventional 0.05 significance level.
+
+Therefore, this model still does **not provide strong evidence** that `score_total` is related to watch time.
+
+The overall model was also **not statistically significant (p = 0.139)**.
+
+One variable, `score_category_match`, was statistically significant (**p = 0.022**). Its coefficient was **-0.48**, meaning that higher values of category matching were associated with slightly lower watch time in this dataset.
+
+This is an **association only**. It does not mean that increasing category matching would cause users to watch less.
+
+### Model 3: Also accounting for differences between users
+
+The third model added `user_id` to account for differences between users.
+
+After doing this, the coefficient for `score_total` was **0.57**, but its p-value was **0.071**.
+
+Because this is above 0.05, the result is **not statistically significant at the 5% level**.
+
+The relationship between `score_total` and watch time therefore remains **uncertain**.
+
+The relationship for `score_category_match` remained statistically significant (**p = 0.030**) and negative (**-0.46**).
+
+### What does this mean overall?
+
+The main finding is that the analysis **does not provide strong evidence that the overall recommendation score (`score_total`) is related to how long users watch a video**.
+
+Although `score_total` had a positive coefficient in Models 2 and 3, the statistical evidence was not strong enough to conclude that there is a clear relationship.
+
+The analysis did find a statistically significant negative association between `score_category_match` and watch time in Models 2 and 3. However, this should be interpreted carefully because the analysis shows an association, **not a causal effect**.
+
+The regression models also explained only a very small part of the differences in watch time. The final model had an R² of **0.0078**, meaning that it explained approximately **0.8% of the variation in watch time**. :contentReference[oaicite:0]{index=0}
+
+This means that most of the differences in watch time were **not explained by the variables included in these regression models**. Other factors that were not included in the dataset may play a much larger role.
+
+Overall, the analysis shows that **video and user behaviour varies considerably, but the variables tested in the regression provide only limited information about why users watch some impressions for longer than others**.
+
+# 7. Limitations
+
+Several limitations should be considered when interpreting the results.
+
+First, the analysis is based on observational data. Therefore, the regression models identify associations but cannot by themselves establish causal relationships.
+
+Second, the models only include the variables available in the datasets. Other characteristics of users, videos, or the recommendation system may influence watch behaviour but are not necessarily captured in the models.
+
+Third, the results of the regression analysis depend on the specification of the models. Different variables, transformations, or model specifications could lead to different estimates.
+
+Finally, the user fixed-effects specification controls for differences between users, but it does not eliminate all potential sources of omitted-variable bias or establish causality.
+
+# 8. Overall Conclusion
+
+Overall, the analysis provides a descriptive overview of TikTok video performance and an examination of factors associated with user watch time. The descriptive analysis highlights differences in reach and watch behaviour across videos and creators, while the regression analysis provides a more structured examination of the relationship between impression characteristics and watch time.
+
+The findings should therefore be interpreted as evidence of patterns and associations in the observed TikTok data rather than as evidence of causal effects.

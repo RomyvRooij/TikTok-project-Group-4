@@ -2,6 +2,15 @@
 
 library(dplyr)
 library(ggplot2)
+library(here)
+library(tidyverse)
+
+watch_events <- read.csv(
+  here("data", "processed", "watch_events_clean.csv")
+)
+impressions <- read.csv(
+  here("data", "processed", "impressions_clean.csv")
+)
 
 # 1. Watch events samenvatten per impression
 watch_summary <- watch_events %>%
