@@ -1,13 +1,45 @@
-# Load raw data
+
+
+library(tidyverse)
+library(RSQLite)
+library(here)
+
+# -------------------------
+# 1. Load data from SQLite
+# -------------------------
 users <- read.csv("data/raw/users.csv")
+
+# -------------------------
+# 2. Clean data
+# -------------------------
 
 # Make column names lowercase
 names(users) <- tolower(names(users))
 
-#Delete missing values
+# Delete missing values
 users <- na.omit(users)
-# Create processed folder if it does not exist
-dir.create("data/processed", showWarnings = FALSE)
 
-# Save cleaned data
-write.csv(users, "data/processed/users_clean.csv", row.names = FALSE)
+# -------------------------
+# 3. Create processed folder
+# -------------------------
+
+dir.create(
+  "data/processed",
+  showWarnings = FALSE
+)
+
+# -------------------------
+# 4. Save cleaned data
+# -------------------------
+
+write.csv(
+  users,
+  "data/processed/users_clean.csv",
+  row.names = FALSE
+)
+
+# -------------------------
+# 5. Close database connection
+# -------------------------
+
+dbDisconnect(con)

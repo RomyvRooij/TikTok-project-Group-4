@@ -104,10 +104,10 @@ data/raw/sessions.csv: src/tiktok-session-analysis/download.R
 
 report: output/final-analysis.pdf
 
-output/final-analysis.pdf: src/final-analysis.qmd data/processed/impressions_clean.csv data/processed/watch_events_clean.csv data/raw/video_view.csv
+output/final-analysis.pdf: final-analysis.qmd data/processed/impressions_clean.csv data/processed/watch_events_clean.csv data/raw/video_view.csv
 	mkdir -p output
-	quarto render src/final-analysis.qmd --output final-analysis.pdf
-	mv src/final-analysis.pdf output/final-analysis.pdf
+	quarto render final-analysis.qmd --output final-analysis.pdf
+	mv final-analysis.pdf output/final-analysis.pdf
 
 
 # =====================

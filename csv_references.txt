@@ -1,0 +1,34 @@
+src/Downloaddata.R:url <- "https://raw.githubusercontent.com/hannesdatta/course-dprep/refs/heads/main/material/project/video_view.csv"
+src/Downloaddata.R:destination <- "data/raw/video_view.csv"
+src/Downloaddata.R:  data <- read_csv(url)
+src/Downloaddata.R:  write_csv(data, destination)
+src/Downloaddata.R:  data <- read_csv(destination)
+src/tiktok-session-analysis/download.R:url <- "https://raw.githubusercontent.com/hannesdatta/course-dprep/refs/heads/main/material/project/coaching_2_data/sessions.csv"
+src/tiktok-session-analysis/download.R:data_file <- file.path(data_dir, "sessions.csv")
+src/tiktok-session-analysis/analysis.R:sessions <- read_csv("data/raw/sessions.csv")
+src/tiktok-session-analysis/analysis.R:write_csv(
+src/tiktok-session-analysis/analysis.R:  "data/processed/sessions_clean.csv"
+src/tiktok-user-analysis/Visualize.R:users <- read.csv("data/processed/users_clean.csv")
+src/tiktok-user-analysis/Cleandata.R:users <- read.csv("data/raw/users.csv")
+src/tiktok-user-analysis/Cleandata.R:write.csv(users, "data/processed/users_clean.csv", row.names = FALSE)
+src/tiktok-user-analysis/Downloaddata.R:url <- "https://raw.githubusercontent.com/hannesdatta/course-dprep/refs/heads/main/material/project/coaching_2_data/users.csv"
+src/tiktok-user-analysis/Downloaddata.R:destination <- "data/raw/users.csv"
+src/tiktok-impression-analysis/Visualization.R:impressions <- read.csv(here("data", "processed", "impressions_clean.csv"))
+src/tiktok-impression-analysis/Downloaddata.R:url <- "https://raw.githubusercontent.com/hannesdatta/course-dprep/refs/heads/main/material/project/coaching_2_data/impressions.csv"
+src/tiktok-impression-analysis/Downloaddata.R:destination <- here("data", "raw", "impressions.csv")
+src/tiktok-impression-analysis/Cleaningdata.R:impressions <- read.csv(here("data", "raw", "impressions.csv"))
+src/tiktok-impression-analysis/Cleaningdata.R:output_path <- here("data", "processed", "impressions_clean.csv")
+src/tiktok-impression-analysis/Cleaningdata.R:write.csv(impressions_clean, output_path, row.names = FALSE)
+src/summary.qmd:views <- read.csv(here("data", "raw", "video_view.csv"))
+src/tiktok-watch_events-analysis/Visualization.R:watch_events_clean <- read_csv("data/processed/watch_events_clean.csv")
+src/tiktok-watch_events-analysis/Visualization.R:video_view <- read_csv("data/raw/video_view.csv")
+src/tiktok-watch_events-analysis/Cleandata.R:watch_raw <- "data/raw/watch_events.csv"
+src/tiktok-watch_events-analysis/Cleandata.R:watch_events <- read_csv(watch_raw)
+src/tiktok-watch_events-analysis/Cleandata.R:write_csv(watch_events, "data/processed/watch_events_clean.csv")
+src/tiktok-watch_events-analysis/Cleandata.R:watch_events_clean <- read_csv("data/processed/watch_events_clean.csv")
+src/tiktok-watch_events-analysis/Downloaddata.R:url <- "https://raw.githubusercontent.com/hannesdatta/course-dprep/refs/heads/main/material/project/coaching_2_data/watch_events.csv"
+src/tiktok-watch_events-analysis/Downloaddata.R:watch_raw <- "data/raw/watch_events.csv"
+src/tiktok-watch_events-analysis/Downloaddata.R:  data <- read_csv(url)
+src/tiktok-watch_events-analysis/Downloaddata.R:  write_csv(data, watch_raw)
+src/tiktok-watch_events-analysis/Downloaddata.R:  data <- read_csv(watch_raw)
+src/tiktok-watch_events-analysis/Downloaddata.R:watch_events <- read_csv(watch_raw)
