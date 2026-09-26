@@ -1,6 +1,6 @@
-.PHONY: all user watch downloaddata impressions sessions clean
+.PHONY: all user watch downloaddata impressions sessions report clean
 
-all: downloaddata user watch impressions sessions
+all: downloaddata user watch impressions sessions report
 
 # =====================
 # Download data
@@ -99,6 +99,18 @@ data/raw/sessions.csv: src/tiktok-session-analysis/download.R
 
 
 # =====================
+# Final analysis report
+# =====================
+
+report: output/final-analysis.pdf
+
+output/final-analysis.pdf: src/final-analysis.qmd data/processed/impressions_clean.csv data/processed/watch_events_clean.csv data/raw/video_view.csv
+	mkdir -p output
+	quarto render src/final-analysis.qmd --output final-analysis.pdf
+	mv src/final-analysis.pdf output/final-analysis.pdf
+
+
+# =====================
 # Clean
 # =====================
 
@@ -126,3 +138,4 @@ clean:
 	rm -f output/sessions/sessions_over_time.png
 	rm -f output/sessions/sessions_by_user.png
 	rm -f output/sessions/videos_vs_watch_time.png
+	rm -f output/final-analysis.pdf
