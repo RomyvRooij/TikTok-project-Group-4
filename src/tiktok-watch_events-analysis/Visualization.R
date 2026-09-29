@@ -31,7 +31,18 @@ ggsave(
   height = 5)
 
 # VISUALIZATION 2: Watch time vs video length
-video_view <- read_csv("data/raw/video_view.csv")
+library(DBI)
+library(RSQLite)
+library(here)
+
+con <- dbConnect(
+  SQLite(),
+  here("data", "raw", "tiktok_students.sqlite")
+)
+
+video_view <- dbGetQuery(con, "SELECT * FROM video_view")
+
+dbDisconnect(con)
 
 watch_length_data <- watch_events_clean |>
   left_join(video_view |>

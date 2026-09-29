@@ -1,13 +1,18 @@
-
-
 library(tidyverse)
+library(DBI)
 library(RSQLite)
-library(here)
 
 # -------------------------
 # 1. Load data from SQLite
 # -------------------------
-users <- read.csv("data/raw/users.csv")
+
+con <- dbConnect(
+  SQLite(),
+  "data/raw/tiktok_students.sqlite"
+)
+users <- dbReadTable(con, "users")
+
+dbDisconnect(con)
 
 # -------------------------
 # 2. Clean data
@@ -25,7 +30,8 @@ users <- na.omit(users)
 
 dir.create(
   "data/processed",
-  showWarnings = FALSE
+  showWarnings = FALSE,
+  recursive = TRUE
 )
 
 # -------------------------
@@ -37,9 +43,3 @@ write.csv(
   "data/processed/users_clean.csv",
   row.names = FALSE
 )
-
-# -------------------------
-# 5. Close database connection
-# -------------------------
-
-dbDisconnect(con)

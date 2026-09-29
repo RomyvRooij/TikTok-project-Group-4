@@ -12,8 +12,17 @@ This report provides a summary of the TikTok video view data.
 ```{r}
 library(here)
 library(tidyverse)
+library(DBI)
+library(RSQLite)
 
-views <- read.csv(here("data", "raw", "video_view.csv"))
+con <- dbConnect(
+  SQLite(),
+  here("data", "raw", "tiktok_students.sqlite")
+)
+
+views <- dbGetQuery(con, "SELECT * FROM video_view")
+
+dbDisconnect(con)
 ```
 
 ## 2. Dataset overview
