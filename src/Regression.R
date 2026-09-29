@@ -41,13 +41,20 @@ regression_complete <- regression_data %>%
         session_duration_sec,
         base_videos_watched_mean,
         avg_category_match,
-        full_watch_rate,
-        watch_seconds) %>%
+        full_watch_rate) %>%
   drop_na()
 
 # Correlation of interest
 cor(regression_complete$videos_viewed, 
     regression_complete$session_duration_sec)
+
+correlation_matrix <- cor(
+  regression_complete,
+  use = "complete.obs"
+)
+
+correlation_matrix
+
 
 # Starter model
 model1 <- lm(videos_viewed ~ session_duration_sec,
@@ -59,7 +66,6 @@ summary(model1)
 model2 <- lm(
   videos_viewed ~
     session_duration_sec +
-    watch_seconds + 
     base_videos_watched_mean +
     avg_category_match +
     full_watch_rate,
@@ -73,3 +79,26 @@ summary(model2)$r.squared
 
 summary(model1)$adj.r.squared
 summary(model2)$adj.r.squared
+
+anova(model1, model2)
+
+# Plot
+regression_plot <- ggplot(regression_complete,
+      aes(x= session_duration_sec/60,
+          y= videos_viewed))+
+  geom_point(
+    alpha=0.2,
+    color = "Pink") +
+  geom_smooth(
+    method = "lm",
+    se= TRUE,
+    color = "blue",
+    linewidth = 1.2) +
+  theme_minimal()+
+  labs(
+    title = "Do longer Tiktok sessions include more videos?",
+    subtitle = "Relationship between session duration and videos viewed",
+    x = "session duration (minutes)",
+    y= "Videos viewed")
+
+regression_plot
