@@ -26,11 +26,21 @@ The analysis uses the cleaned datasets stored in the project's processed data fo
 ```{r}
 library(here)
 library(tidyverse)
+library(DBI)
+library(RSQLite)
 
-# Video-view data
-views <- read.csv(
-  here("data", "raw", "video_view.csv")
+# Video-view data from SQLite
+con <- dbConnect(
+  SQLite(),
+  here("data", "raw", "tiktok_students.sqlite")
 )
+
+views <- dbGetQuery(
+  con,
+  "SELECT * FROM video_view"
+)
+
+dbDisconnect(con)
 
 # Cleaned impression data
 impressions <- read.csv(
