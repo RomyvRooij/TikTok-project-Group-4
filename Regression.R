@@ -5,6 +5,8 @@ library(ggplot2)
 library(here)
 library(tidyverse)
 
+dir.create(here("output"), recursive = TRUE, showWarnings = FALSE)
+
 watch_events <- read.csv(
   here("data", "processed", "watch_events_clean.csv")
 )
@@ -50,7 +52,7 @@ model3 <- lm(
 summary(model3)
 
 # 6. Plot: relation between score_total and watch_seconds
-ggplot(reg_data, aes(x = score_total, y = watch_seconds)) +
+score_watch_plot <- ggplot(reg_data, aes(x = score_total, y = watch_seconds)) +
   geom_point(alpha = 0.2) +
   geom_smooth(method = "lm", color = "blue") +
   labs(
@@ -58,6 +60,14 @@ ggplot(reg_data, aes(x = score_total, y = watch_seconds)) +
     x = "Score total",
     y = "Watch seconds"
   )
+
+ggsave(
+  filename = here("output", "score_watch_regression.png"),
+  plot = score_watch_plot,
+  width = 8,
+  height = 5,
+  dpi = 300
+)
 
 # 7. Residual plot
 plot(model2)
