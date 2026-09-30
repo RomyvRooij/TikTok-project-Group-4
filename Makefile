@@ -14,8 +14,8 @@ RM = Rscript -e "unlink('$(1)', force = TRUE)"
 downloaddata: data/raw/video_view.csv
 
 data/raw/video_view.csv: src/Downloaddata.R
-	$(call MKDIR,data/raw)
-	Rscript src/Downloaddata.R
+    $(call MKDIR,data/raw)
+    Rscript src/Downloaddata.R
 
 
 # =====================
@@ -63,7 +63,7 @@ data/raw/watch_events.csv: src/Tiktok-watch_events-analysis/Downloaddata.R
 # =====================
 
 impressions: output/impressions/Plot_1_source_distribution.png output/impressions/Plot_2_ranking_scores_distribution.png \
-	output/impressions/Plot_3_ranking_by_source.png output/impressions/Plot_4_position_distribution.png
+    output/impressions/Plot_3_ranking_by_source.png output/impressions/Plot_4_position_distribution.png
 
 output/impressions/Plot_1_source_distribution.png output/impressions/Plot_2_ranking_scores_distribution.png \
 output/impressions/Plot_3_ranking_by_source.png output/impressions/Plot_4_position_distribution.png: \
@@ -85,8 +85,8 @@ data/raw/impressions.csv: src/tiktok-impression-analysis/Downloaddata.R
 # =====================
 
 sessions: data/processed/sessions_clean.csv output/sessions/session_duration.png output/sessions/videos_viewed.png \
-	output/sessions/watch_seconds.png output/sessions/duration_vs_videos.png output/sessions/sessions_over_time.png \
-	output/sessions/sessions_by_user.png output/sessions/videos_vs_watch_time.png
+    output/sessions/watch_seconds.png output/sessions/duration_vs_videos.png output/sessions/sessions_over_time.png \
+    output/sessions/sessions_by_user.png output/sessions/videos_vs_watch_time.png
 
 output/sessions/session_duration.png output/sessions/videos_viewed.png output/sessions/watch_seconds.png \
 output/sessions/duration_vs_videos.png output/sessions/sessions_over_time.png output/sessions/sessions_by_user.png \
