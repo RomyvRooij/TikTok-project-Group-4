@@ -206,5 +206,40 @@ We also used `rank()` to rank users based on the number of sessions they had. Th
 
 We tested both changes by running the session analysis again and checking that the outputs were generated correctly.
 
+## Regression analysis 
+# Goal
+The goal of this assignment is to identify one interesting correlation in the data and investigate it further using regression analysis.
+
+In this analysis, we focus on the relationship between the total recommendation score of an impression (`score_total`) and the amount of time a user watches the video (`watch_seconds`).
+
+The main research question is:
+
+**Is a higher recommendation score associated with longer video watch time?**
+
+The expectation is that videos with a higher recommendation score are more relevant to users and are therefore watched for a longer period of time.
+
+# Data
+This analysis uses two datasets:
+- impressions.csv
+- watch_events.csv
+
+These datasets need to be downloaded first. This can be done using the downloaddata.R script. 
+
+The `watch_events` dataset is first summarized at the impression level. This creates one total value for `watch_seconds` for each `impression_id`.
+
+Then, this summarized watch data is joined with the `impressions` dataset.
+
+If an impression does not have a matching watch event, the watch time is set to `0`. This means that the video was shown to the user but was not watched.
+
+# Model 1: simple linear regression
+The first model investigates the simple relationship between `score_total` and `watch_seconds`.
+
+# Model 2: multiple linear regression
+This model controls for different variables: 'feed_rank', 'score_category_match', 'score_creator_match', 'score_satiation_penalty', 'source_bucket'.
+
+This extended model is the main model in the analysis because it accounts for multiple factors that may influence watch time.
+
+# Model 3
+The third model adds user fixed effects by including `user_id` as a factor variable.
 
 Group 4
