@@ -131,6 +131,19 @@ creator_summary <- views %>%
 creator_summary
 ```
 
-## 10. Conclusion
+## 10. Regression analysis
+
+```{r}
+source(here("src", "regression.R"))
+
+summary(model1)
+summary(model2)
+regression_plot
+```
+
+## 11. Conclusion
 
 The analysis provides an overview of video volume, reach, watch behaviour, and creator-level performance. It shows differences in video performance and provides insight into which videos and creators received the most engagement.
+
+The regression analysis additionally shows a strong positive association between session duration and the number of videos viewed. the expanded model tests whether user-level behaviour, content relevance, and full-watch behaviour provide additional explanatory power beyond session duration.
+
