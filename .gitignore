@@ -11,3 +11,5 @@ output/watch_events
 
 /.quarto/
 **/*.quarto_ipynb
+
+summary.html
