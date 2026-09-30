@@ -3,8 +3,12 @@ This repository is a template for the **Data preparation and programming skills*
 
 ## **GOAL of the project**
 The goal of this project is to work together on the TikTok data in Positron with GitHub. 
-We are analyzing the `video_view.csv` dataset to explore video performance, reach and viewing behaviour.  
-The project focuses on downloading the data, preparing it, and performing an analysis to answer the research question of the project.
+
+We analyze TikTok user behaviour using data on users, sessions, impressions, watch events, and video views.
+
+The project focuses on downloading the data, preparing it, performing several analyses, running a regression analysis, and combining the results into one final reproducible report.
+
+As an additional database exercise, the project also demonstrates how the TikTok data can be accessed through a SQLite database.
 
 ## **Set up the environment & install dependencies**
 This project was developed using Positron.
@@ -22,6 +26,7 @@ To set up the project environment:
     install.packages("dplyr")
     install.packages("ggplot2")
     install.packages("here")
+    install.packages("RSQLite")
 ```
 
 ## **Reproducing the analysis**
@@ -33,6 +38,9 @@ Run in the terminal:
 ```
 make
 ```
+
+The makefile automates the analysis workflow and ensures that the required scripts are run in the correct order.
+
 ## Project workflow
 
 The project follows these main steps:
@@ -42,9 +50,11 @@ The project follows these main steps:
 3. The cleaned data is stored in `data/processed/` where applicable.
 4. The analysis scripts generate visualizations.
 5. The visualizations are saved in the corresponding `output/` folders.
-6. `summary.qmd` combines the project results into the final summary.
+6. `Regression.R` combines variables from multiple datasets and performs the regression analysis.
+7. `summary.qmd` combines the project results into one final report.
+8. The final report is rendered to `output/final-analysis.pdf`
 
-The Makefile automates the workflow and ensures that the required steps are run in the correct order.
+In addition, `DownloadDataSQL.R` and `SQL_analysis.R` demonstrate how the same project data can be downloaded and accessed through a SQLite databse.
 
 ## Troubleshooting
 
@@ -54,6 +64,7 @@ If `make` does not run as expected, check the following:
 - Make sure R and all required packages are installed.
 - Make sure you have cloned the repository correctly.
 - Make sure the required data can be downloaded using the project's download scripts.
+- Check whether the expected folders exist in `data/`, `src/`, and `output/`.
 
 If an expected output is missing, check the corresponding analysis folder in `src/` and run `make` again.
 
@@ -86,6 +97,8 @@ If the problem persists, check the error message in the terminal to identify whi
    - **sessions/** - the plots from the session analysis
    - **users/** the plots from the users analysis
    - **watch_events/** the plots from the watch_events analysis
+   - **final-analysis.pdf** final rendered report combining the project analyses.
+   - **`summary.qmd** Quarto file that reads the data and produces the summary.
 
 3. src
 
@@ -158,11 +171,15 @@ If the problem persists, check the error message in the terminal to identify whi
    ### `Downloaddata.R`
    Script to download the dataset.
 
-   ### `summary.qmd`
-   Quarto file that reads the data and produces the summary.
+   ### `DownloadDataSQL.R`
+   Demonstrates how the SQLite databse can be downloaded as an alternative data source.
 
-   ### `summary.html`
-   Rendered output of `summary.qmd`.
+   ### `SQL_analysis.R`
+   Demonstrates how tables can be accessed from the SQLite database. 
+   The main analysis pipeline continues to use the CSV and processed datasets.
+
+   ### `Regression.R`
+   Contains the regression analysis with a starter model, that is then expanded with multiple variables.
 
 4. .gitignore (ensures the data folder is not tracked by Git)
 5. AI.md (description of AI usage)
@@ -170,12 +187,38 @@ If the problem persists, check the error message in the terminal to identify whi
 
 Note: the data folder is excluded from Git via .gitignore, so raw and processed data files are never committed. Empty subfolders are kept using .gitkeep placeholder files, since Git does not track empty directories.
 
+## Regression analysis 
+# Goal
+The goal of this assignment is to identify one interesting correlation in the data and investigate it further using regression analysis.
+
+In this analysis, we focus on the relationship between the total recommendation score of an impression (`score_total`) and the amount of time a user watches the video (`watch_seconds`).
+
+The main research question is: **Is a higher recommendation score associated with longer video watch time?**
+The expectation is that videos with a higher recommendation score are more relevant to users and are therefore watched for a longer period of time.
+
+# Data
+This analysis uses two datasets:
+- impressions.csv
+- watch_events.csv
+
+These datasets need to be downloaded first. This can be done using the downloaddata.R script. 
+The `watch_events` dataset is first summarized at the impression level. This creates one total value for `watch_seconds` for each `impression_id`.
+Then, this summarized watch data is joined with the `impressions` dataset.
+If an impression does not have a matching watch event, the watch time is set to `0`. This means that the video was shown to the user but was not watched.
+
+# Model 1: simple linear regression
+The first model investigates the simple relationship between `score_total` and `watch_seconds`.
+
+# Model 2: multiple linear regression
+This model controls for different variables: 'feed_rank', 'score_category_match', 'score_creator_match', 'score_satiation_penalty', 'source_bucket'.
+This extended model is the main model in the analysis because it accounts for multiple factors that may influence watch time.
+
+# Model 3
+The third model adds user fixed effects by including `user_id` as a factor variable.
+
 ## Peer review and pull requests
 
-Team members worked on separate branches and contributed their changes
-through pull requests. Pull requests were reviewed by another team
-member, feedback was addressed where applicable, and the updated
-changes were checked before merging into `main`.
+Team members worked on separate branches and contributed their changes through pull requests. Pull requests were reviewed by another team member, feedback was addressed where applicable, and the updated changes were checked before merging into `main`.
 
 | Pull request | Contribution | Author | Reviewer | Feedback addressed |
 |---|---|---|---|---|
@@ -206,40 +249,26 @@ We also used `rank()` to rank users based on the number of sessions they had. Th
 
 We tested both changes by running the session analysis again and checking that the outputs were generated correctly.
 
-## Regression analysis 
-# Goal
-The goal of this assignment is to identify one interesting correlation in the data and investigate it further using regression analysis.
+## Final report
+The results from the different parts of the project are combined into one final Quarto report.
 
-In this analysis, we focus on the relationship between the total recommendation score of an impression (`score_total`) and the amount of time a user watches the video (`watch_seconds`).
+The final report includes:
 
-The main research question is:
+- basic data inspection;
+- impression analysis;
+- session analysis;
+- user analysis;
+- watch-event analysis;
+- regression analysis;
+- visualizations;
+- conclusions and limitations.
 
-**Is a higher recommendation score associated with longer video watch time?**
+The source document is:
+`final-analysis.qmd`
 
-The expectation is that videos with a higher recommendation score are more relevant to users and are therefore watched for a longer period of time.
+The rendered final output is:
+`output/final-analysis.pdf`
+The final report can be reproduced automatically by running `make` from the root of the repository.
 
-# Data
-This analysis uses two datasets:
-- impressions.csv
-- watch_events.csv
-
-These datasets need to be downloaded first. This can be done using the downloaddata.R script. 
-
-The `watch_events` dataset is first summarized at the impression level. This creates one total value for `watch_seconds` for each `impression_id`.
-
-Then, this summarized watch data is joined with the `impressions` dataset.
-
-If an impression does not have a matching watch event, the watch time is set to `0`. This means that the video was shown to the user but was not watched.
-
-# Model 1: simple linear regression
-The first model investigates the simple relationship between `score_total` and `watch_seconds`.
-
-# Model 2: multiple linear regression
-This model controls for different variables: 'feed_rank', 'score_category_match', 'score_creator_match', 'score_satiation_penalty', 'source_bucket'.
-
-This extended model is the main model in the analysis because it accounts for multiple factors that may influence watch time.
-
-# Model 3
-The third model adds user fixed effects by including `user_id` as a factor variable.
 
 Group 4
