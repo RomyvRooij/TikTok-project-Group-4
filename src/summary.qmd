@@ -12,8 +12,17 @@ This report provides a summary of the TikTok video view data.
 ```{r}
 library(here)
 library(tidyverse)
+library(DBI)
+library(RSQLite)
 
-views <- read_csv(here("data", "raw", "video_view.csv"))
+con <- dbConnect(
+  SQLite(),
+  here("data", "raw", "tiktok_students.sqlite")
+)
+
+views <- dbGetQuery(con, "SELECT * FROM video_view")
+
+dbDisconnect(con)
 ```
 
 ## 2. Dataset overview
@@ -137,3 +146,4 @@ regression_plot
 The analysis provides an overview of video volume, reach, watch behaviour, and creator-level performance. It shows differences in video performance and provides insight into which videos and creators received the most engagement.
 
 The regression analysis additionally shows a strong positive association between session duration and the number of videos viewed. the expanded model tests whether user-level behaviour, content relevance, and full-watch behaviour provide additional explanatory power beyond session duration.
+
