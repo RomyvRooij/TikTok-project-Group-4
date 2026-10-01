@@ -69,5 +69,18 @@ ggsave(
   dpi = 300
 )
 
-# 7. Residual plot
+# 7. Diagnostic plots for regression model
+png(
+  filename = here("output", "score_watch_diagnostics.png"),
+  width = 1000,
+  height = 1000
+)
+
+old_par <- par(no.readonly = TRUE)
+
+par(mfrow = c(2, 2))
 plot(model2)
+
+par(old_par)
+
+dev.off()
