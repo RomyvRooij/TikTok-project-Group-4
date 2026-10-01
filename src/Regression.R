@@ -5,7 +5,11 @@ library(ggplot2)
 library(here)
 library(tidyverse)
 
-dir.create(here("output"), recursive = TRUE, showWarnings = FALSE)
+output_dir <- here("output","regression")
+if (!dir.exists(output_dir)) {
+  dir.create(output_dir, recursive = TRUE)
+}
+
 
 watch_events <- read.csv(
   here("data", "processed", "watch_events_clean.csv")
@@ -62,7 +66,7 @@ score_watch_plot <- ggplot(reg_data, aes(x = score_total, y = watch_seconds)) +
   )
 
 ggsave(
-  filename = here("output", "score_watch_regression.png"),
+  filename = here("output","regression", "score_watch_regression.png"),
   plot = score_watch_plot,
   width = 8,
   height = 5,
@@ -71,7 +75,7 @@ ggsave(
 
 # 7. Diagnostic plots for regression model
 png(
-  filename = here("output", "score_watch_diagnostics.png"),
+  filename = here("output", "regression", "score_watch_diagnostics.png"),
   width = 1000,
   height = 1000
 )
