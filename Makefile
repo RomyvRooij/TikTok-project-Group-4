@@ -111,7 +111,7 @@ regression: output/regression/score_watch_regression.png output/regression/score
 
 output/regression/score_watch_regression.png output/regression/score_watch_diagnostics.png: \
 	data/processed/watch_events_clean.csv data/processed/impressions_clean.csv src/Regression.R
-	$(call MKDIR,output)
+	$(call MKDIR,output/regression)
 	Rscript src/Regression.R
 
 
@@ -140,7 +140,7 @@ output/final-analysis.pdf: final-analysis.qmd \
 	output/regression/score_watch_diagnostics.png
 	$(call MKDIR,output)
 	quarto render final-analysis.qmd
-	Rscript -e "if (file.exists('output/final-analysis.pdf')) unlink('output/final-analysis.pdf'); ok <- file.rename('final-analysis.pdf', 'output/final-analysis.pdf'); if (!ok) stop('Could not move final-analysis.pdf to output folder')"
+	Rscript -e "if (file.exists('final-analysis.pdf')) { if (file.exists('output/final-analysis.pdf')) unlink('output/final-analysis.pdf'); ok <- file.rename('final-analysis.pdf', 'output/final-analysis.pdf'); if (!ok) stop('Could not move final-analysis.pdf to output folder') } else if (!file.exists('output/final-analysis.pdf')) { stop('final-analysis.pdf was not created') }"
 	$(call RM,final-analysis.tex)
 	$(call RM,final-analysis.knit.md)
 
