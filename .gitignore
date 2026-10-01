@@ -9,6 +9,7 @@ output/sessions
 output/users
 output/watch_events
 output/regression 
+output/sql_analysis.txt
 
 /.quarto/
 **/*.quarto_ipynb
