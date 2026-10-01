@@ -1,18 +1,10 @@
 library(tidyverse)
-library(DBI)
-library(RSQLite)
 
 # -------------------------
-# 1. Load data from SQLite
+# 1. Load data from csv
 # -------------------------
 
-con <- dbConnect(
-  SQLite(),
-  "data/raw/tiktok_students.sqlite"
-)
-users <- dbReadTable(con, "users")
-
-dbDisconnect(con)
+users <- read.csv("data/raw/users.csv")
 
 # -------------------------
 # 2. Clean data
@@ -22,7 +14,7 @@ dbDisconnect(con)
 names(users) <- tolower(names(users))
 
 # Delete missing values
-users <- na.omit(users)
+users_clean <- na.omit(users)
 
 # -------------------------
 # 3. Create processed folder
@@ -39,7 +31,7 @@ dir.create(
 # -------------------------
 
 write.csv(
-  users,
+  users_clean,
   "data/processed/users_clean.csv",
   row.names = FALSE
 )
