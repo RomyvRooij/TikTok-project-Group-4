@@ -25,7 +25,7 @@ pref_cols <- c(
 # Calculate average preference per category
 avg_preferences <- data.frame(
   category = pref_cols,
-  mean_preference = colMeans(users[pref_cols])
+  mean_preference = colMeans(users[pref_cols],na.rm=TRUE)
 )
 
 avg_preferences
