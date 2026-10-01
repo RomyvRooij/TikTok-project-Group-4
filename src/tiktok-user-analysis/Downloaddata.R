@@ -1,6 +1,3 @@
-
-
-
 # Create data folder if it does not exist
 dir.create("data/raw", recursive = TRUE, showWarnings = FALSE)
 # Define URL and destination file
