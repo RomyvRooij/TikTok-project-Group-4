@@ -41,6 +41,14 @@ make
 
 The makefile automates the analysis workflow and ensures that the required scripts are run in the correct order.
 
+Run in the terminal:
+
+```
+make clean
+```
+
+This will remove all generated files and output but makes sure the raw data stays.
+
 ## Project workflow
 
 The project follows these main steps:
@@ -72,8 +80,13 @@ If the problem persists, check the error message in the terminal to identify whi
 
 ## **Group member and contributions**
 *Tessa Breusers* 
-- Made the data folder, added gitkeep because they were empty, wrote the whole README and set up folder structure.
-- made the analysis section of users.
+- Made the data folder, added gitkeep because they were empty, wrote the README and set up folder structure.
+- Made the analysis section of users. 
+- Wrote the downloaddataSQL script to show we can also work with sqlite databases.
+- Build a regression model an run an analysis on it, creating a plot.
+- Updated the makefile so it runs on both Windows and Mac.
+- Updated README.
+
 
 *Romy van Rooij* 
 - Made the tiktok project, made a start on the Quarto summary, performed final updates on the README to improve clarity and structure.
@@ -103,7 +116,7 @@ If the problem persists, check the error message in the terminal to identify whi
 3. src
 
    ### `tiktok-impression-analysis/`
-   Contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder.
+   Contains the R scripts for downloading, cleaning, and visualization of the data.
 
    #### Overview
    This folder inspects and analyzes TikTok feed impression data to evaluate content delivery and ranking mechanisms. Key aspects of the analysis include:
@@ -120,7 +133,7 @@ If the problem persists, check the error message in the terminal to identify whi
    - `Plot_4_position_distribution.png`
 
    ### `tiktok-session-analysis/`
-   Contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder.
+   Contains the R scripts for downloading, cleaning, and visualization of the data.
 
    #### Overview
    This folder inspects and analyzes TikTok session data to understand user engagement patterns and viewing habits across sessions. Key aspects of the analysis include:
@@ -142,7 +155,7 @@ If the problem persists, check the error message in the terminal to identify whi
    - `watch_seconds.png` — total watch time per session, in seconds.
 
    ### `tiktok-user-analysis/`
-   Contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder.
+   Contains the R scripts for downloading, cleaning, and visualization of the data. 
 
    #### Overview
    This folder analyzes TikTok user preferences to explore differences in average preferences across users.
@@ -150,10 +163,13 @@ If the problem persists, check the error message in the terminal to identify whi
    #### Output
    Running the pipeline generates the visual report in `output/users`:
 
-- `average_preferences.png` — visualization of the average user preferences.
+- `average_preferences.png` — This plot shows the average user preference score for each content category in the cleaned users dataset. 
+   The selected categories include comedy, dance, beauty/fashion, food, fitness/sports, gaming, DIY/home, travel, education, and pets.
+
+   For each category, the mean preference score is calculated across all users, excluding missing values. The resulting bar chart makes it easy to compare which content categories users prefer most on average. Higher bars indicate stronger average preference for that category, while lower bars indicate weaker average preference.
 
    ### `tiktok_watch_events-analysis/`
-   Contains the R scripts for downloading, cleaning, and visualization of the data. This folder also contains a README for this specific folder.
+   Contains the R scripts for downloading, cleaning, and visualization of the data.
 
    #### Overview
    This folder inspects and analyzes TikTok watch event data to understand how users react to videos and how viewing behaviour relates to video characteristics. Key aspects of the analysis include:
@@ -179,7 +195,7 @@ If the problem persists, check the error message in the terminal to identify whi
    The main analysis pipeline continues to use the CSV and processed datasets.
 
    ### `Regression.R`
-   Contains the regression analysis with a starter model, that is then expanded with multiple variables.
+   Contains the regression analysis with a starter model, that is then expanded with multiple variables. Read further to learn more about what the regression is about.
 
 4. .gitignore (ensures the data folder is not tracked by Git)
 5. AI.md (description of AI usage)
@@ -208,13 +224,20 @@ If an impression does not have a matching watch event, the watch time is set to 
 
 # Model 1: simple linear regression
 The first model investigates the simple relationship between `score_total` and `watch_seconds`.
+This model shows whether impressions with a higher recommandation score are associated with a higher watch time on avarage.
 
 # Model 2: multiple linear regression
 This model controls for different variables: 'feed_rank', 'score_category_match', 'score_creator_match', 'score_satiation_penalty', 'source_bucket'.
 This extended model is the main model in the analysis because it accounts for multiple factors that may influence watch time.
 
 # Model 3
-The third model adds user fixed effects by including `user_id` as a factor variable.
+The third model adds user fixed effects by including `user_id` as a factor variable. This model controls for stable differences between users, such as some users generally watching more videos or spending more time watching than others.
+
+# Ouput
+The script saves two outputs in the output/regression folder:
+
+   - score_watch_regression.png: a scatter plot showing the relationship between score_total and watch_seconds, including a fitted regression line.
+   - score_watch_diagnostics.png: diagnostic plots for the multiple regression model, used to assess model assumptions such as residual patterns, normality, and influential observations. 
 
 ## Peer review and pull requests
 
