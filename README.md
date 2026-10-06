@@ -62,7 +62,7 @@ The project follows these main steps:
 7. `summary.qmd` combines the project results into one final report.
 8. The final report is rendered to `output/final-analysis.pdf`
 
-In addition, `DownloadDataSQL.R` and `SQL_analysis.R` demonstrate how the same project data can be downloaded and accessed through a SQLite databse.
+In addition, `DownloadDataSQL.R` and `SQL_analysis.R` demonstrate how the same project data can be downloaded and accessed through a SQLite database.
 
 ## Troubleshooting
 
@@ -234,7 +234,7 @@ If an impression does not have a matching watch event, the watch time is set to 
 
 # Model 1: simple linear regression
 The first model investigates the simple relationship between `score_total` and `watch_seconds`.
-This model shows whether impressions with a higher recommandation score are associated with a higher watch time on avarage.
+This model shows whether impressions with a higher recommandation score are associated with a higher watch time on average.
 
 # Model 2: multiple linear regression
 This model controls for different variables: 'feed_rank', 'score_category_match', 'score_creator_match', 'score_satiation_penalty', 'source_bucket'.
@@ -243,7 +243,7 @@ This extended model is the main model in the analysis because it accounts for mu
 # Model 3
 The third model adds user fixed effects by including `user_id` as a factor variable. This model controls for stable differences between users, such as some users generally watching more videos or spending more time watching than others.
 
-# Ouput
+# Output
 The script saves two outputs in the output/regression folder:
 
    - score_watch_regression.png: a scatter plot showing the relationship between score_total and watch_seconds, including a fitted regression line.
