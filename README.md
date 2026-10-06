@@ -83,7 +83,7 @@ If the problem persists, check the error message in the terminal to identify whi
 - Made the data folder, added gitkeep because they were empty, wrote the README and set up folder structure.
 - Made the analysis section of users. 
 - Wrote the downloaddataSQL script to show we can also work with sqlite databases.
-- Build a regression model an run an analysis on it, creating a plot.
+- Build a regression model and run an analysis on it, creating a plot.
 - Updated the makefile so it runs on both Windows and Mac.
 - Updated README.
 
@@ -94,11 +94,13 @@ If the problem persists, check the error message in the terminal to identify whi
 
 *Ana Maria Iacob* 
 - Completed the Quarto summary in summary.qmd, using the downloaded video data, saved it in the correct folder, and checked that it renders without errors. I also kept the project structure organized with the data in data/raw and the analysis files in src.
-- made the analysis section of sessions. 
+- Made the analysis section of sessions. 
 
 *Elsemieke van Gent* 
 - Made the Downloaddata.R script and wrote the code for downloading the data. Added the .gitignore file and made sure that the data would not be tracked.
-- made the analysis section of impressions. Also made sure the general Makefile runs smoothly and without errors.
+- Made the analysis section of impressions. Also made sure the general Makefile runs smoothly and without errors.
+- Made the final Makefile, now it has the option to run 'make' to generate the report. But also 'make SQL' to show that we know how to use the .sqlite database. 
+- Finalised all the src files, to make sure there were no errors with loading the data from csv, cleaning it and running the right analysis. 
 
 ## **Structure**
 1. data
