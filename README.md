@@ -201,9 +201,15 @@ If the problem persists, check the error message in the terminal to identify whi
    ### `Regression.R`
    Contains the regression analysis with a starter model, that is then expanded with multiple variables. Read further to learn more about what the regression is about.
 
-4. .gitignore (ensures the data folder is not tracked by Git)
-5. AI.md (description of AI usage)
-6. README.md (explains the whole project)
+4. `.gitignore` (ensures the data folder is not tracked by Git)
+
+5. `AI.md` (description of AI usage)
+
+6. `final-analysis.qmd` (Quarto source file for the final report)
+
+7. `Makefile` (automates the project workflow and generates the final report)
+
+8. `README.md` (explains the whole project)
 
 Note: the data folder is excluded from Git via .gitignore, so raw and processed data files are never committed. Empty subfolders are kept using .gitkeep placeholder files, since Git does not track empty directories.
 
