@@ -96,6 +96,7 @@ If the problem persists, check the error message in the terminal to identify whi
 *Ana Maria Iacob* 
 - Completed the Quarto summary in summary.qmd, using the downloaded video data, saved it in the correct folder, and checked that it renders without errors. I also kept the project structure organized with the data in data/raw and the analysis files in src.
 - Made the analysis section of sessions. 
+- Completed the final analysis file and checked that it runs and renders successfully and saved it as pdf in output folder.
 
 *Elsemieke van Gent* 
 - Made the Downloaddata.R script and wrote the code for downloading the data. Added the .gitignore file and made sure that the data would not be tracked.
